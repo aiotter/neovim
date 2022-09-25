@@ -10,7 +10,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, vim-plugins }:
-    flake-utils.lib.eachDefaultSystem (system:
+    flake-utils.lib.eachSystem (builtins.attrNames vim-plugins.packages) (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
