@@ -2,7 +2,8 @@
   description = "Neovim with my favourite plugins";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.follows = "vim-plugins/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     vim-plugins.url = "path:./sources";
     # vim-plugins.inputs.nixpkgs.follows = "nixpkgs";

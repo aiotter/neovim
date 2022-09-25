@@ -64,21 +64,6 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1664058032,
-        "narHash": "sha256-djifox1rDQ2x+ujJCHiXyPAl2bXk+GlYorA0Clfhfko=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f2ea9a9fcd41b65651fd89c1b9198798f4362f66",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixpkgs-unstable",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
         "lastModified": 1663997113,
         "narHash": "sha256-3BRdXIQrfNSrLaVxgioVFxQbDStDPc8Bk/yBSKURlZI=",
         "owner": "ilkecan",
@@ -112,7 +97,10 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "vim-plugins",
+          "nixpkgs"
+        ],
         "vim-plugins": "vim-plugins"
       }
     },
@@ -217,7 +205,7 @@
         "askpass-vim": "askpass-vim",
         "denops-vim": "denops-vim",
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "popup-menu-nvim": "popup-menu-nvim",
         "spelunker-vim": "spelunker-vim",
         "vim-cheatsheet": "vim-cheatsheet",
