@@ -47,21 +47,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1663997113,
@@ -96,12 +81,26 @@
     },
     "root": {
       "inputs": {
+        "askpass-vim": "askpass-vim",
+        "denops-vim": "denops-vim",
         "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "vim-plugins",
-          "nixpkgs"
-        ],
-        "vim-plugins": "vim-plugins"
+        "nixpkgs": "nixpkgs",
+        "popup-menu-nvim": "popup-menu-nvim",
+        "spelunker-vim": "spelunker-vim",
+        "vim-cheatsheet": "vim-cheatsheet",
+        "vim-dichromatic": "vim-dichromatic",
+        "vim-emacs-bindings": "vim-emacs-bindings",
+        "vim-fugitive-blame-ext": "vim-fugitive-blame-ext",
+        "vim-mdx-js": "vim-mdx-js",
+        "vim-precious": "vim-precious",
+        "vim-quickrun": "vim-quickrun",
+        "vim-textobj-indent": "vim-textobj-indent",
+        "vim-textobj-line": "vim-textobj-line",
+        "vim-textobj-parameter": "vim-textobj-parameter",
+        "vim-textobj-underscore": "vim-textobj-underscore",
+        "vim-textobj-uri": "vim-textobj-uri",
+        "vim-textobj-word-column": "vim-textobj-word-column",
+        "vimdoc-ja": "vimdoc-ja"
       }
     },
     "spelunker-vim": {
@@ -197,45 +196,6 @@
       "original": {
         "owner": "jxnblk",
         "repo": "vim-mdx-js",
-        "type": "github"
-      }
-    },
-    "vim-plugins": {
-      "inputs": {
-        "askpass-vim": "askpass-vim",
-        "denops-vim": "denops-vim",
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs",
-        "popup-menu-nvim": "popup-menu-nvim",
-        "spelunker-vim": "spelunker-vim",
-        "vim-cheatsheet": "vim-cheatsheet",
-        "vim-dichromatic": "vim-dichromatic",
-        "vim-emacs-bindings": "vim-emacs-bindings",
-        "vim-fugitive-blame-ext": "vim-fugitive-blame-ext",
-        "vim-mdx-js": "vim-mdx-js",
-        "vim-precious": "vim-precious",
-        "vim-quickrun": "vim-quickrun",
-        "vim-textobj-indent": "vim-textobj-indent",
-        "vim-textobj-line": "vim-textobj-line",
-        "vim-textobj-parameter": "vim-textobj-parameter",
-        "vim-textobj-underscore": "vim-textobj-underscore",
-        "vim-textobj-uri": "vim-textobj-uri",
-        "vim-textobj-word-column": "vim-textobj-word-column",
-        "vimdoc-ja": "vimdoc-ja"
-      },
-      "locked": {
-        "dir": "sources",
-        "lastModified": 1664113532,
-        "narHash": "sha256-4H8XAkrnfasllFqqIvq9f8SPU17ojly67E5zn4O7dX0=",
-        "owner": "aiotter",
-        "repo": "neovim",
-        "rev": "4ccf2ca4bceb86e5e8a802b13b1113a9dfe538f9",
-        "type": "github"
-      },
-      "original": {
-        "dir": "sources",
-        "owner": "aiotter",
-        "repo": "neovim",
         "type": "github"
       }
     },
