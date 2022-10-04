@@ -1,9 +1,89 @@
-{ vim-cheatsheet }: {
+{ vim-cheatsheet }:
+let
+  cheatSheet = builtins.toFile "vim-cheat-sheet.md" ''
+    VIM CHEAT SHEET
+    ===============
+    # オペレータとモーション
+    [オペレータ][数字][モーション] の組み合わせで編集する．
+
+    ## オペレータ
+    - c  : change (削除してインサートモードに移行; 例: `cs'`)
+    - gc : comment out (vim-commentary)
+    - gs : sort (vim-sort-motion)
+
+    ## 特殊オペレータ (s: vim-surround)
+    [モーション] s [対象] ([対象])
+    - ds  : delete surroundings (例: `ds"    - " を削除`)
+    - cs  : change surroundings (例: `cs"'`  - " を ' に変換)
+    - ys  : you surround        (例: `ysiw}` - 単語を{}でくくる)
+      - ys は (,{,[ のときスペースを挿入し， ),},] のとき挿入しない
+
+    ## モーション
+    - w  : word (単語の末尾まで: 末尾の空白を含む)
+    - e  : end of word (単語の末尾まで)
+    - ,  : comma-separeted value (sgur/vim-textobj-parameter)
+    - c  : column (idbrii/textobj-word-column.vim)
+    - i  : indent (kana/vim-textobj-indent)
+    - l  : line (kana/vim-textobj-line)
+    - u  : uri (jceb/vim-textobj-uri)
+
+
+    # マクロとレジスタ
+    マクロはレジスタに文字列として登録される．
+    レジスタに使える名前は以下の通り．
+    - "    : 無名レジスタ（ヤンクすると登録されるやつ）
+    - 0-9  : 無名レジスタの履歴
+    - -    : 一行未満の文字列を削除したときにそれが保存されるレジスタ
+    - .    : 最後に入力された文字
+    - %    : 開いているファイルのファイル名
+    - :    : 最後に実行したコマンド（使用例: `@:` - 最後のコマンドを再実行）
+    - _    : /dev/null
+    - a-z  : 自由に使えるレジスタ（新規登録）
+    - A-Z  : レジスタ a-z に追記
+
+    - マクロ記録開始 : q[NAME]
+    - マクロ記録終了 : q
+    - マクロ実行     : @[NAME]
+    - マクロ再実行   : @@
+
+    - 操作開始 (NORMAL) : "[NAME]
+    - 操作開始 (INSERT) : Ctrl-R
+    - 登録              : y
+    - 呼び出し          : p
+    - レジスタ確認      : :reg [NAME]
+
+
+    # ジャンプ
+    - 任意の行へ       : gg (デフォルト: 1行目)
+    - 任意の行へ       : G  (デフォルト: 最終行)
+    - ウィンドウ先頭へ : H
+    - ウィンドウ中央へ : M
+    - ウィンドウ末尾へ : L
+    - 検索 (前方)      : /
+    - 検索 (後方)      : ?
+    - 続けて検索       : n
+    - 逆方向へ検索     : N
+    - ジャンプ前に戻る : C-O
+    - C-o のやり直し   : Tab or C-I
+
+    # 折りたたみ
+    zd, zo, za, ... は zD, zO, zA, ... とすることで再帰的に機能する
+    - zf[モーション] : 任意のモーション分の折りたたみを形成する
+    - zF             : 一行の折りたたみを形成する
+    - zd             : 折りたたみを削除する
+    - zE             : 折りたたみをすべて削除する (eliminate)
+    - zo             : 折りたたみを開く (open)
+    - zc             : 折りたたみを閉じる (close)
+    - za             : 折りたたみの開閉を切り替える
+    - zm             : 折りたたみを全部閉じる (fold more)
+  '';
+in
+{
   plugin = vim-cheatsheet;
   config = ''
     nnoremap <Leader>c :Cheat<CR>
 
-    let g:cheatsheet#cheat_file = '~/.vim-cheatsheet.md'
+    let g:cheatsheet#cheat_file = '${cheatSheet}'
     if has('nvim')
       let g:cheatsheet#float_window = 1
       let g:cheatsheet#float_window_width_ratio = 0.9
