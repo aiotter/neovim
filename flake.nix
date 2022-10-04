@@ -25,7 +25,7 @@
         plugins = allPlugins;
       };
       neovimConfigWrapped = neovimConfig // {
-        neovimRcContent = builtins.readFile ./vimrc-prepend.vim + neovimConfig.neovimRcContent;
+        neovimRcContent = builtins.readFile ./vimrc-prepend.vim + import ./lsp-servers { inherit pkgs; } + neovimConfig.neovimRcContent;
       };
     in
     rec {
