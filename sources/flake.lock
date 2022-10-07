@@ -49,11 +49,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1663997113,
-        "narHash": "sha256-3BRdXIQrfNSrLaVxgioVFxQbDStDPc8Bk/yBSKURlZI=",
+        "lastModified": 1664625818,
+        "narHash": "sha256-Eon66APO5+szeaVY3Q4G1DkCdRpZJyrRL1oslbqCU8A=",
         "owner": "ilkecan",
         "repo": "nixpkgs",
-        "rev": "049e684a57b5997991659d7cb107de4554a75027",
+        "rev": "40b58ecf030c82c5465a5e715eb9ffbf7791e379",
         "type": "github"
       },
       "original": {
@@ -90,6 +90,7 @@
         "vim-cheatsheet": "vim-cheatsheet",
         "vim-dichromatic": "vim-dichromatic",
         "vim-emacs-bindings": "vim-emacs-bindings",
+        "vim-emacscommandline": "vim-emacscommandline",
         "vim-fugitive-blame-ext": "vim-fugitive-blame-ext",
         "vim-mdx-js": "vim-mdx-js",
         "vim-precious": "vim-precious",
@@ -164,6 +165,22 @@
       "original": {
         "owner": "kentarosasaki",
         "repo": "vim-emacs-bindings",
+        "type": "github"
+      }
+    },
+    "vim-emacscommandline": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1511519793,
+        "narHash": "sha256-SmcsiUomw2XeQltgMRbRydjEKegbUL0gEbRAXfufz8I=",
+        "owner": "houtsnip",
+        "repo": "vim-emacscommandline",
+        "rev": "3363eeb1f958bd0630448fdaa5f19ba7a834b343",
+        "type": "github"
+      },
+      "original": {
+        "owner": "houtsnip",
+        "repo": "vim-emacscommandline",
         "type": "github"
       }
     },
@@ -330,11 +347,11 @@
     "vimdoc-ja": {
       "flake": false,
       "locked": {
-        "lastModified": 1663858676,
-        "narHash": "sha256-kAChCBmF5t5TlE+gkxYsy7KOA/RvcLKuiyHj8pi8xLU=",
+        "lastModified": 1664699467,
+        "narHash": "sha256-jXQLm0kARPqoOrpPru0h9Zv8XelY7cqptkQeqGrc3xU=",
         "owner": "vim-jp",
         "repo": "vimdoc-ja",
-        "rev": "09c0b54bbd4ef420886139f54f7b223b5f434735",
+        "rev": "2c503e554284fef5bdcd24a5e76acf4fc45717b7",
         "type": "github"
       },
       "original": {

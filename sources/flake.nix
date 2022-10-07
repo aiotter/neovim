@@ -22,6 +22,7 @@
     popup-menu-nvim = { url = "github:kamykn/popup-menu.nvim"; flake = false; };
     vimdoc-ja = { url = "github:vim-jp/vimdoc-ja"; flake = false; };
     vim-emacs-bindings = { url = "github:kentarosasaki/vim-emacs-bindings"; flake = false; };
+    vim-emacscommandline = { url = "github:houtsnip/vim-emacscommandline"; flake = false; };
     vim-fugitive-blame-ext = { url = "github:tommcdo/vim-fugitive-blame-ext"; flake = false; };
     denops-vim = { url = "github:vim-denops/denops.vim"; flake = false; };
     askpass-vim = { url = "github:lambdalisue/askpass.vim"; flake = false; };
