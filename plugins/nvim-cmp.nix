@@ -11,7 +11,9 @@
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
       end
 
-      local cmp = require"cmp"
+      local cmp = require("cmp")
+      local types = require("cmp.types")
+
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -24,6 +26,32 @@
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
+          ["<C-n>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() ~= nil then
+              cmp.select_next_item({ behavior = types.cmp.SelectBehavior.Insert })
+            else fallback()
+            end
+          end, { "i", "s" }),
+          ["<Down>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() ~= nil then
+              cmp.select_next_item({ behavior = types.cmp.SelectBehavior.Insert })
+            else fallback()
+            end
+          end, { "i", "s" }),
+
+          ["<C-p>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() ~= nil then
+              cmp.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert })
+            else fallback()
+            end
+          end, { "i", "s" }),
+          ["<Up>"] = cmp.mapping(function(fallback)
+            if cmp.visible() and cmp.get_selected_entry() ~= nil then
+              cmp.select_prev_item({ behavior = types.cmp.SelectBehavior.Insert })
+            else fallback()
+            end
+          end, { "i", "s" }),
 
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then

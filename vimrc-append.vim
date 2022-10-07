@@ -177,15 +177,15 @@ inoremap <expr><CR> _Enter_key()
 " inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
 " inoremap <expr><C-p> pumvisible() ? "<Up>" : "<C-p>"
 
-" カーソルキーで補完ウィンドウにフォーカスしない
-function! Is_completion_unforcused()
-  return complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
-endfunction
-imap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
-imap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
+" カーソルキーで補完ウィンドウにフォーカスしない (nvim-cmp.vim で設定済み)
+" function! Is_completion_unforcused()
+"   return complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
+" endfunction
+" imap <expr><Down> Is_completion_unforcused() ? "\<C-e>\<Down>" : "\<Down>"
+" imap <expr><Up>   Is_completion_unforcused() ? "\<C-e>\<Up>"   : "\<Up>"
 " ↓おそらく vim のバグで設定できない
-imap <expr><C-n>  Is_completion_unforcused() ? "\<C-e>\<C-n>"  : "\<Down>"
-imap <expr><C-p>  Is_completion_unforcused() ? "\<C-e>\<C-p>"  : "\<Up>"
+" imap <expr><C-n>  Is_completion_unforcused() ? "\<C-e>\<C-n>"  : "\<Down>"
+" imap <expr><C-p>  Is_completion_unforcused() ? "\<C-e>\<C-p>"  : "\<Up>"
 
 
 " ----- ヒントの表示 -----
