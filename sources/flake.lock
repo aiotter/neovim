@@ -100,7 +100,6 @@
         "vim-textobj-underscore": "vim-textobj-underscore",
         "vim-textobj-uri": "vim-textobj-uri",
         "vim-textobj-word-column": "vim-textobj-word-column",
-        "vim-tmux-yank": "vim-tmux-yank",
         "vimdoc-ja": "vimdoc-ja"
       }
     },
@@ -341,22 +340,6 @@
       "original": {
         "owner": "idbrii",
         "repo": "textobj-word-column.vim",
-        "type": "github"
-      }
-    },
-    "vim-tmux-yank": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1588384954,
-        "narHash": "sha256-VTL6k9HTXqZK9YQfnksLu25yeW4/Vj+Jr2b1dHRuFEM=",
-        "owner": "jabirali",
-        "repo": "vim-tmux-yank",
-        "rev": "8432fd440f61ddead070093be06b3dd6b0b5790e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jabirali",
-        "repo": "vim-tmux-yank",
         "type": "github"
       }
     },
