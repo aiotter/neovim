@@ -26,6 +26,7 @@
     vim-fugitive-blame-ext = { url = "github:tommcdo/vim-fugitive-blame-ext"; flake = false; };
     denops-vim = { url = "github:vim-denops/denops.vim"; flake = false; };
     askpass-vim = { url = "github:lambdalisue/askpass.vim"; flake = false; };
+    vim-tmux-yank = { url = "github:jabirali/vim-tmux-yank"; flake = false; };
   };
 
   outputs = { nixpkgs, flake-utils, ... }@inputs:
