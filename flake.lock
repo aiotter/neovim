@@ -236,16 +236,15 @@
         "vim-textobj-underscore": "vim-textobj-underscore",
         "vim-textobj-uri": "vim-textobj-uri",
         "vim-textobj-word-column": "vim-textobj-word-column",
-        "vim-tmux-yank": "vim-tmux-yank",
         "vimdoc-ja": "vimdoc-ja"
       },
       "locked": {
         "dir": "sources",
-        "lastModified": 1667310199,
-        "narHash": "sha256-c1vZkAsKcZLAoASUGwc/H0BpSIAvpY7E0Zxf14AIEII=",
+        "lastModified": 1667313077,
+        "narHash": "sha256-h31zVjcuoZENZI6sueYmj4vCWTE3N5dQoFP8wjVAtWE=",
         "owner": "aiotter",
         "repo": "neovim",
-        "rev": "fc2ce50b43858abbe2cfea78e226077d04dc8e3d",
+        "rev": "3561b1ce69e88e121b41a30204c67eb675339766",
         "type": "github"
       },
       "original": {
@@ -380,22 +379,6 @@
       "original": {
         "owner": "idbrii",
         "repo": "textobj-word-column.vim",
-        "type": "github"
-      }
-    },
-    "vim-tmux-yank": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1588384954,
-        "narHash": "sha256-VTL6k9HTXqZK9YQfnksLu25yeW4/Vj+Jr2b1dHRuFEM=",
-        "owner": "jabirali",
-        "repo": "vim-tmux-yank",
-        "rev": "8432fd440f61ddead070093be06b3dd6b0b5790e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jabirali",
-        "repo": "vim-tmux-yank",
         "type": "github"
       }
     },
