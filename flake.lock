@@ -34,11 +34,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1667077288,
+        "narHash": "sha256-bdC8sFNDpT0HK74u9fUkpbf1MEzVYJ+ka7NXCdgBoaA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "6ee9ebb6b1ee695d2cacc4faa053a7b9baa76817",
         "type": "github"
       },
       "original": {
@@ -64,18 +64,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1664625818,
-        "narHash": "sha256-Eon66APO5+szeaVY3Q4G1DkCdRpZJyrRL1oslbqCU8A=",
-        "owner": "ilkecan",
+        "lastModified": 1667085676,
+        "narHash": "sha256-jPHYYoSdrV3ypWG4oi9SUeI2MU6dLjxM88+9io5Rrx0=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "40b58ecf030c82c5465a5e715eb9ffbf7791e379",
+        "rev": "e6e6bad81b7e11f37d893ef39712ce8918ae2338",
         "type": "github"
       },
       "original": {
-        "owner": "ilkecan",
-        "ref": "buildVimPlugin-prevent-building-two-times",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "popup-menu-nvim": {
@@ -97,10 +96,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": [
-          "vim-plugins",
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs",
         "vim-plugins": "vim-plugins"
       }
     },
@@ -221,7 +217,9 @@
         "askpass-vim": "askpass-vim",
         "denops-vim": "denops-vim",
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
         "popup-menu-nvim": "popup-menu-nvim",
         "spelunker-vim": "spelunker-vim",
         "vim-cheatsheet": "vim-cheatsheet",
@@ -242,11 +240,11 @@
       },
       "locked": {
         "dir": "sources",
-        "lastModified": 1665171556,
-        "narHash": "sha256-EUg6Yox2qt0tfdhf/dRAY7ImWjp7ezXtMTXYL3B3N24=",
+        "lastModified": 1665171657,
+        "narHash": "sha256-DxGiefnSBi/+Ef9ieD25JFZYCFAzne27XNofmCJM9tY=",
         "owner": "aiotter",
         "repo": "neovim",
-        "rev": "83efba6c0d0deff7e424ed363f56100ee6631c74",
+        "rev": "f7ce7cf7376bc4547e25f91c6f87016aa2603c41",
         "type": "github"
       },
       "original": {

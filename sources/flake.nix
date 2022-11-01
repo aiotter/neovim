@@ -2,9 +2,7 @@
   description = "Neovim plugin sources";
 
   inputs = {
-    # nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    # Fix for https://github.com/NixOS/nixpkgs/pull/192733
-    nixpkgs.url = "github:ilkecan/nixpkgs/buildVimPlugin-prevent-building-two-times";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     vim-cheatsheet = { url = "github:reireias/vim-cheatsheet"; flake = false; };

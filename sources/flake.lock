@@ -19,11 +19,11 @@
     "denops-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1662483124,
-        "narHash": "sha256-FvFjxav8BD4hzRSyw14BiskkXCBc3o3VCH25fpfSd2Y=",
+        "lastModified": 1666028357,
+        "narHash": "sha256-bfNYiMk7Mp0nH2OfUm0+Z1gSD2s/GAr959HnPS6UMdA=",
         "owner": "vim-denops",
         "repo": "denops.vim",
-        "rev": "d7db28587bb281f9fcf56d4986e313025e250295",
+        "rev": "53ce6187e04da044c85b79ef856f1487326a7ac5",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1659877975,
-        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "lastModified": 1667077288,
+        "narHash": "sha256-bdC8sFNDpT0HK74u9fUkpbf1MEzVYJ+ka7NXCdgBoaA=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "rev": "6ee9ebb6b1ee695d2cacc4faa053a7b9baa76817",
         "type": "github"
       },
       "original": {
@@ -49,18 +49,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1664625818,
-        "narHash": "sha256-Eon66APO5+szeaVY3Q4G1DkCdRpZJyrRL1oslbqCU8A=",
-        "owner": "ilkecan",
+        "lastModified": 1667085676,
+        "narHash": "sha256-jPHYYoSdrV3ypWG4oi9SUeI2MU6dLjxM88+9io5Rrx0=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "40b58ecf030c82c5465a5e715eb9ffbf7791e379",
+        "rev": "e6e6bad81b7e11f37d893ef39712ce8918ae2338",
         "type": "github"
       },
       "original": {
-        "owner": "ilkecan",
-        "ref": "buildVimPlugin-prevent-building-two-times",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "ref": "nixpkgs-unstable",
+        "type": "indirect"
       }
     },
     "popup-menu-nvim": {
@@ -101,6 +100,7 @@
         "vim-textobj-underscore": "vim-textobj-underscore",
         "vim-textobj-uri": "vim-textobj-uri",
         "vim-textobj-word-column": "vim-textobj-word-column",
+        "vim-tmux-yank": "vim-tmux-yank",
         "vimdoc-ja": "vimdoc-ja"
       }
     },
@@ -344,14 +344,30 @@
         "type": "github"
       }
     },
+    "vim-tmux-yank": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1588384954,
+        "narHash": "sha256-VTL6k9HTXqZK9YQfnksLu25yeW4/Vj+Jr2b1dHRuFEM=",
+        "owner": "jabirali",
+        "repo": "vim-tmux-yank",
+        "rev": "8432fd440f61ddead070093be06b3dd6b0b5790e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jabirali",
+        "repo": "vim-tmux-yank",
+        "type": "github"
+      }
+    },
     "vimdoc-ja": {
       "flake": false,
       "locked": {
-        "lastModified": 1664699467,
-        "narHash": "sha256-jXQLm0kARPqoOrpPru0h9Zv8XelY7cqptkQeqGrc3xU=",
+        "lastModified": 1667287421,
+        "narHash": "sha256-/pTJgeuOT11z2k0nK5tPqKYG8MvvM6hlO49JNqfjy5w=",
         "owner": "vim-jp",
         "repo": "vimdoc-ja",
-        "rev": "2c503e554284fef5bdcd24a5e76acf4fc45717b7",
+        "rev": "427876dc07ea3000295dc0b2c7cb78eba015d8da",
         "type": "github"
       },
       "original": {
