@@ -36,7 +36,7 @@
     let g:lmap.l.i = [':execute "lua vim.lsp.buf.implementation()"', 'implementation']
     let g:lmap.l.R = [':execute "lua vim.lsp.buf.rename()"', 'Rename']
     let g:lmap.l.d = [':execute "lua vim.lsp.diagnostic.show_line_diagnostics()"', 'diagnostics (line)']
-    let g:lmap.l.f = [':execute "lua vim.lsp.buf.formatting()"', 'format']
+    let g:lmap.l.f = [':execute "lua vim.lsp.buf.format()"', 'format']
     let g:lmap.l.r = [':execute "lua vim.lsp.buf.references()"', 'references']
 
     let g:lmap.g = {'name': '+Git'}
