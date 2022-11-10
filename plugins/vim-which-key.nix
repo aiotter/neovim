@@ -35,7 +35,7 @@
     let g:lmap.l.a = [':CodeActionMenu', 'code action']
     let g:lmap.l.i = [':execute "lua vim.lsp.buf.implementation()"', 'implementation']
     let g:lmap.l.R = [':execute "lua vim.lsp.buf.rename()"', 'Rename']
-    let g:lmap.l.d = [':execute "lua vim.lsp.diagnostic.show_line_diagnostics()"', 'diagnostics (line)']
+    let g:lmap.l.d = [':execute "lua vim.diagnostic.open_float()"', 'diagnostics (line)']
     let g:lmap.l.f = [':execute "lua vim.lsp.buf.format()"', 'format']
     let g:lmap.l.r = [':execute "lua vim.lsp.buf.references()"', 'references']
 
