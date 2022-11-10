@@ -1,6 +1,6 @@
 # https://nixos.wiki/wiki/Tree_sitters
 { nvim-treesitter }: {
-  plugin = nvim-treesitter.withPlugins (plugins: builtins.attrValues plugins);
+  plugin = nvim-treesitter.withAllGrammars;
   config = ''
     lua <<EOF
     require'nvim-treesitter.configs'.setup {
