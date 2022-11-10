@@ -62,5 +62,5 @@
           });
         };
       in
-      { packages = with pkgs.lib; recurseIntoAttrs (fix (extends overrides myVimPlugins)); });
+      { packages = with pkgs.lib; fix (extends overrides myVimPlugins); });
 }
