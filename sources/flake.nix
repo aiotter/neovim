@@ -32,7 +32,7 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         vimPlugins = pkgs.vimPlugins;
-        buildSimpleVimPlugins = builtins.mapAttrs (name: src: pkgs.vimUtils.buildVimPlugin { inherit name src; });
+        buildSimpleVimPlugins = builtins.mapAttrs (pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; });
         myVimPlugins = self: buildSimpleVimPlugins (pkgs.lib.attrsets.filterAttrs (name: _: name != "nixpkgs" && name != "flake-utils" && name != "self") inputs);
         overrides = self: super: {
           vim-precious = super.vim-precious.overrideAttrs (old: { dependencies = [ vimPlugins.context_filetype-vim ]; });
