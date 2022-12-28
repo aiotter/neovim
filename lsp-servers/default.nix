@@ -3,6 +3,7 @@
 
 let
   tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
+  sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
 in
 
 ''
@@ -10,7 +11,8 @@ in
   local lspconfig = require("lspconfig")
   local util = require("lspconfig.util")
 
-  lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp"} }
+  lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
+  lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
 
   lspconfig.tailwindcss.setup {
