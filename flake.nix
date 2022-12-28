@@ -24,7 +24,31 @@
         plugins = allPlugins;
       };
       neovimConfigWrapped = neovimConfig // {
-        neovimRcContent = builtins.readFile ./vimrc-prepend.vim + import ./lsp-servers { inherit pkgs; } + neovimConfig.neovimRcContent;
+        neovimRcContent = builtins.concatStringsSep "\n\n" [
+          (builtins.readFile ./vimrc-prepend.vim)
+          (import ./lsp-servers { inherit pkgs; })
+          (neovimConfig.neovimRcContent)
+          (
+            let
+              python3 = pkgs.python3.withPackages (pkgs: [ pkgs.pynvim ]);
+            in
+            ''
+              if exists("$VIRTUAL_ENV")
+                let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+
+                " Install pynvim if absent
+                if system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
+                  call system(g:python3_host_prog . ' -m pip --disable-pip-version-check install pynvim')
+                endif
+
+                " config for QuickRun
+                let $PATH = s:venv_dir . '/bin:' . $PATH
+              else
+                let g:python3_host_prog = '${python3}/bin/python3'
+              endif
+            ''
+          )
+        ];
       };
     in
     rec {
