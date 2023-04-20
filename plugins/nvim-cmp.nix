@@ -25,7 +25,7 @@
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
           ["<C-n>"] = cmp.mapping(function(fallback)
             if cmp.visible() and cmp.get_selected_entry() ~= nil then
