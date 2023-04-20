@@ -11,9 +11,21 @@ in
   local lspconfig = require("lspconfig")
   local util = require("lspconfig.util")
 
+  lspconfig.eslint.setup { cmd = { "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-eslint-language-server", "--stdio" } }
+  lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
+  lspconfig.rust_analyzer.setup { cmd = { "${pkgs.rust-analyzer}/bin/rust-analyzer" } }
   lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
+
+  lspconfig.fortls.setup { cmd = { "${pkgs.fortls}/bin/fortls", "--config=${builtins.toFile ".fortls" (builtins.toJSON {
+      notify_init = true;
+      hover_signature = true;
+      hover_language = "fortran";
+      # use_signature_help = true;
+      lowercase_intrinsics = true;
+      disable_autoupdate = true;
+    })}" } }
 
   lspconfig.tailwindcss.setup {
     cmd = { "${tailwindcss-lsp}/bin/tailwindcss-language-server", "--stdio" } }
