@@ -1,4 +1,8 @@
-# Available servers: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+# Available servers:
+# https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+
+# LS for Rust is configured at rust-tools-nvim plugin configuration
+
 { pkgs }:
 
 let
@@ -14,7 +18,6 @@ in
   lspconfig.eslint.setup { cmd = { "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-eslint-language-server", "--stdio" } }
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
-  lspconfig.rust_analyzer.setup { cmd = { "${pkgs.rust-analyzer}/bin/rust-analyzer" } }
   lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
 
