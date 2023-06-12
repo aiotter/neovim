@@ -15,11 +15,32 @@ in
   local lspconfig = require("lspconfig")
   local util = require("lspconfig.util")
 
-  lspconfig.eslint.setup { cmd = { "${pkgs.nodePackages.vscode-langservers-extracted}/bin/vscode-eslint-language-server", "--stdio" } }
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
   lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
+  lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
+
+
+  local prettier = {
+    formatCommand = "${pkgs.nodePackages.prettier}/bin/prettier --stdin-filepath ''${INPUT}",
+    formatStdin = true,
+  }
+
+  lspconfig.efm.setup {
+    settings = {
+      rootMarkers = { ".git/" },
+      languages = {
+        javascript = { prettier },
+        typescript = { prettier },
+        html = { prettier },
+      },
+      -- logLevel = 4,
+    },
+    init_options = { documentFormatting = true },
+    cmd = { "${pkgs.efm-langserver}/bin/efm-langserver" },
+    filetypes = { "javascript", "typescript", "html" },
+  }
 
   lspconfig.fortls.setup { cmd = { "${pkgs.fortls}/bin/fortls", "--config=${builtins.toFile ".fortls" (builtins.toJSON {
       notify_init = true;
@@ -31,11 +52,18 @@ in
     })}" } }
 
   lspconfig.tailwindcss.setup {
-    cmd = { "${tailwindcss-lsp}/bin/tailwindcss-language-server", "--stdio" } }
+    cmd = { "${tailwindcss-lsp}/bin/tailwindcss-language-server", "--stdio" }
+  }
 
   lspconfig.denols.setup {
     cmd = { "${pkgs.deno}/bin/deno", "lsp" },
     init_options = { importMap = vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";") and vim.fn.fnamemodify(vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";"), ":p") },
+    root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+  }
+
+  lspconfig.tsserver.setup {
+    cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" },
+    root_dir = util.root_pattern("tsconfig.json"),
   }
   EOF
 ''
