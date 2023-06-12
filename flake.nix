@@ -18,16 +18,16 @@
       vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
       callVimPlugin = pkgs.lib.callPackageWith (vimPlugins // pkgs);
       allPlugins = map (fileName: callVimPlugin ./plugins/${fileName} { }) (builtins.attrNames (builtins.readDir ./plugins));
-      neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
+      neovimConfigOriginal = pkgs.neovimUtils.makeNeovimConfig {
         # beforePlugins = ""; # <- no such config for neovim
         customRC = builtins.readFile ./vimrc-append.vim;
         plugins = allPlugins;
       };
-      neovimConfigWrapped = neovimConfig // {
+      neovimConfigFinal = neovimConfigOriginal // {
         neovimRcContent = builtins.concatStringsSep "\n\n" [
           (builtins.readFile ./vimrc-prepend.vim)
           (import ./lsp-servers { inherit pkgs; })
-          (neovimConfig.neovimRcContent)
+          (neovimConfigOriginal.neovimRcContent)
           (
             let
               python3 = pkgs.python3.withPackages (pkgs: [ pkgs.pynvim ]);
@@ -49,10 +49,11 @@
             ''
           )
         ];
+        wrapperArgs = neovimConfigOriginal.wrapperArgs ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' ];
       };
     in
     rec {
-      packages.default = with pkgs; wrapNeovimUnstable neovim-unwrapped neovimConfigWrapped;
+      packages.default = with pkgs; wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
     }
   );
 }
