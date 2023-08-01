@@ -42,7 +42,7 @@
                 endif
 
                 " config for QuickRun
-                let $PATH = s:venv_dir . '/bin:' . $PATH
+                let $PATH = $VIRTUAL_ENV . '/bin:' . $PATH
               else
                 let g:python3_host_prog = '${python3}/bin/python3'
               endif
