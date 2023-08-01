@@ -19,6 +19,7 @@ in
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
   lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
+  lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
 
 
