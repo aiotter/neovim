@@ -7,7 +7,9 @@
 
 let
   tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
-  sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
+
+  # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
+  # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
 in
 
 ''
@@ -17,7 +19,6 @@ in
 
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
-  lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
