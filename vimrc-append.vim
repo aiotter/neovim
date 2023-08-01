@@ -35,8 +35,10 @@ autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE g
 " json のダブルクオーテーションなど，視認性を妨げる文字を隠す設定
 if has('conceal')
   set conceallevel=1 " 表示する(0), 代理文字（default: スペース）に置換(1), 非表示(2)
-  set concealcursor=nc " カーソルライン上で構文を隠すモードの指定．n: normal, v: visual, i: insert, c: command
+  set concealcursor= " カーソルライン上で構文を隠すモードの指定．n: normal, v: visual, i: insert, c: command
   autocmd ColorSchemePre * highlight clear Conceal
+
+  let g:markdown_syntax_conceal = 0
 endif
 
 
@@ -156,22 +158,24 @@ autocmd FileType c           setlocal sw=4 sts=4 ts=4 et
 autocmd FileType gitconfig   setlocal sw=4 ts=4 noet
 autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
 
+let g:html_indent_autotags = 1
+
 
 " ----- 補完 -----
 " 常に補完候補を表示/補完ウィンドウ表示時に挿入しない
 set completeopt=menuone,noinsert,noselect ",preview
 
 " 補完選択時はEnterで改行をしない
-function! _Enter_key()
-  if complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
-    return "\<CR>\<CR>"
-  elseif pumvisible()
-    return "\<C-y>"
-  else
-    return "\<CR>"
-  endif
-endfunction
-inoremap <expr><CR> _Enter_key()
+" function! _Enter_key()
+"   if complete_info(['pum_visible', 'selected']) == {'pum_visible': 1, 'selected': -1}
+"     return "\<CR>\<CR>"
+"   elseif pumvisible()
+"     return "\<C-y>"
+"   else
+"     return "\<CR>"
+"   endif
+" endfunction
+" inoremap <expr><CR> _Enter_key()
 
 " C-p と C-n を矢印キーと同じ挙動に（候補選択時に挿入しない）
 " inoremap <expr><C-n> pumvisible() ? "<Down>" : "<C-n>"
