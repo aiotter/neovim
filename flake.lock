@@ -276,15 +276,18 @@
       },
       "locked": {
         "dir": "sources",
-        "lastModified": 1690954037,
-        "narHash": "sha256-YuSnkz3ZEfdUTao+p9oOhVtUwiNHCiDRruB6olp8fPQ=",
-        "type": "git",
-        "url": "file:.?dir=sources"
+        "lastModified": 1690945599,
+        "narHash": "sha256-mmkvzHwVJNg/IYIif6ClNsHqtt6bwLM9dfDiij9jAQQ=",
+        "owner": "aiotter",
+        "repo": "neovim",
+        "rev": "2785e781430290a814ca861af801a0ed2f61c60a",
+        "type": "github"
       },
       "original": {
         "dir": "sources",
-        "type": "git",
-        "url": "file:.?dir=sources"
+        "owner": "aiotter",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "vim-precious": {
