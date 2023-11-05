@@ -23,8 +23,8 @@ in
   local util = require("lspconfig.util")
 
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
+  lspconfig.nil_ls.setup { cmd = { "${pkgs.nil}/bin/nil" } }
   lspconfig.pyright.setup { cmd = { "${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio" } }
-  lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
   lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
@@ -37,7 +37,7 @@ in
 
   lspconfig.efm.setup {
     settings = {
-      rootMarkers = { ".git/" },
+      rootMarkers = { ".prettierrc", ".git/" },
       languages = {
         javascript = { prettier },
         typescript = { prettier },
