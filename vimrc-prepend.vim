@@ -33,4 +33,9 @@ lspconfig.util.default_config = vim.tbl_extend(
 
 local handlers = require("vim.lsp.handlers")
 handlers["textDocument/hover"] = vim.lsp.with(handlers.hover, { border = "single" })
+
+vim.diagnostic.config({
+  severity_sort = true,
+  float = { source = true },
+})
 EOF
