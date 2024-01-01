@@ -10,6 +10,11 @@ let
 
   # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
   # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
+
+  pylsp = pkgs.python3.withPackages (
+    ps: with ps; [ python-lsp-server pyls-isort pylsp-mypy ]
+      ++ python-lsp-server.optional-dependencies.all
+  );
 in
 
 ''
@@ -18,6 +23,7 @@ in
   local util = require("lspconfig.util")
 
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
+  lspconfig.pyright.setup { cmd = { "${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio" } }
   lspconfig.rnix.setup { cmd = { "${pkgs.rnix-lsp}/bin/rnix-lsp" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
@@ -66,6 +72,20 @@ in
   lspconfig.tsserver.setup {
     cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" },
     root_dir = util.root_pattern("tsconfig.json"),
+  }
+
+  lspconfig.pylsp.setup {
+    cmd = { "${pylsp}/bin/pylsp" },
+    settings = {
+      pylsp = {
+        plugins = {
+          autopep8 = { enabled = false },
+          flake8 = { enabled = true },
+          pylint = { enabled = true },
+          rope_autoimport = { enabled = true },
+        },
+      },
+    },
   }
   EOF
 ''
