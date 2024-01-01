@@ -161,6 +161,12 @@ autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
 let g:html_indent_autotags = 1
 
 
+" ----- スペルチェック -----
+set spell
+set spelllang=en,cjk
+set spelloptions=camel
+
+
 " ----- 補完 -----
 " 常に補完候補を表示/補完ウィンドウ表示時に挿入しない
 set completeopt=menuone,noinsert,noselect ",preview
