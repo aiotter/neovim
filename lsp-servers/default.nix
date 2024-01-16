@@ -6,6 +6,7 @@
 { pkgs }:
 
 let
+  erlls = pkgs.callPackage ./erlls {};
   tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
 
   # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
@@ -19,9 +20,12 @@ in
 
 ''
   lua <<EOF
+  ${pkgs.lib.fileContents ./server_configurations.lua}
+
   local lspconfig = require("lspconfig")
   local util = require("lspconfig.util")
 
+  lspconfig.erlls.setup { cmd = { "${erlls}/bin/erlls" } }
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
   lspconfig.nil_ls.setup { cmd = { "${pkgs.nil}/bin/nil" } }
   lspconfig.pyright.setup { cmd = { "${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio" } }
@@ -65,7 +69,7 @@ in
 
   lspconfig.denols.setup {
     cmd = { "${pkgs.deno}/bin/deno", "lsp" },
-    init_options = { importMap = vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";") and vim.fn.fnamemodify(vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";"), ":p") },
+    -- init_options = { importMap = vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";") and vim.fn.fnamemodify(vim.fn.findfile("import_map.json", vim.api.nvim_buf_get_name(0) .. ";"), ":p") },
     root_dir = util.root_pattern("deno.json", "deno.jsonc"),
   }
 

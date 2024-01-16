@@ -22,7 +22,7 @@ local on_attach = function(client, bufnr)
 end
 
 local lspconfig = require("lspconfig")
-lspconfig.util.default_config = vim.tbl_extend(
+lspconfig.util.default_config = vim.tbl_deep_extend(
   "force",
   lspconfig.util.default_config,
   {
@@ -38,4 +38,6 @@ vim.diagnostic.config({
   severity_sort = true,
   float = { source = true },
 })
+
+-- require("vim.lsp.log").set_level(vim.log.levels.DEBUG)
 EOF
