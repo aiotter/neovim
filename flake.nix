@@ -6,15 +6,19 @@
     flake-utils.url = "github:numtide/flake-utils";
     vim-plugins.url = "github:aiotter/neovim?dir=sources";
     vim-plugins.inputs.nixpkgs.follows = "nixpkgs";
+    nil.url = "github:oxalica/nil";
+    nil.inputs.nixpkgs.follows = "nixpkgs";
+    nil.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, vim-plugins }: {
+  outputs = { self, nixpkgs, flake-utils, vim-plugins, ... }@inputs: {
     overlays.default = final: prev: {
       neovim = self.packages.${prev.system}.default;
     };
   } // flake-utils.lib.eachSystem (builtins.attrNames vim-plugins.packages) (system:
     let
-      pkgs = nixpkgs.legacyPackages.${system};
+      overlays = with inputs; map (input: input.overlays.default) [ nil ];
+      pkgs = import nixpkgs { inherit system overlays; };
       vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
       callVimPlugin = pkgs.lib.callPackageWith (vimPlugins // pkgs);
       allPlugins = map (fileName: callVimPlugin ./plugins/${fileName} { }) (builtins.attrNames (builtins.readDir ./plugins));
@@ -51,8 +55,7 @@
         ];
         wrapperArgs = neovimConfigOriginal.wrapperArgs ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' ];
       };
-    in
-    rec {
+    in {
       packages.default = with pkgs; wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
     }
   );
