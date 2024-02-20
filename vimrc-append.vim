@@ -22,21 +22,20 @@ if has('nvim')
 elseif has('vim_starting')
     set clipboard+=unnamed
 endif
-
-if !empty($TMUX)
-  let g:clipboard = {
-\   'name': 'tmux',
-\   'copy': {
-\      '+': ['tmux', 'load-buffer', '-'],
-\      '*': ['tmux', 'load-buffer', '-'],
-\    },
-\   'paste': {
-\      '+': ['tmux', 'save-buffer', '-'],
-\      '*': ['tmux', 'save-buffer', '-'],
-\   },
-\   'cache_enabled': 1,
-\ }
-endif
+lua <<EOF
+  local osc52 = require('vim.ui.clipboard.osc52')
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = osc52.copy('+'),
+      ['*'] = osc52.copy('*'),
+    },
+    paste = {
+      ['+'] = osc52.paste('+'),
+      ['*'] = osc52.paste('*'),
+    },
+  }
+EOF
 
 
 " ----- 制御文字の表示 -----
