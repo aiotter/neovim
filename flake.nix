@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    neovim.url = "github:neovim/neovim";
+    neovim.flake = false;
     vim-plugins.url = "github:aiotter/neovim?dir=sources";
     vim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     nil.url = "github:oxalica/nil";
@@ -11,7 +13,7 @@
     nil.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, vim-plugins, ... }@inputs: {
+  outputs = { self, nixpkgs, flake-utils, neovim, vim-plugins, ... }@inputs: {
     overlays.default = final: prev: {
       neovim = self.packages.${prev.system}.default;
     };
@@ -55,8 +57,10 @@
         ];
         wrapperArgs = neovimConfigOriginal.wrapperArgs ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' ];
       };
-    in {
-      packages.default = with pkgs; wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
+      neovim-nightly-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; };
+    in
+    {
+      packages.default = with pkgs; wrapNeovimUnstable neovim-nightly-unwrapped neovimConfigFinal;
     }
   );
 }

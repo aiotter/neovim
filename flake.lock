@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "neovim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1708374065,
+        "narHash": "sha256-1g4X7Iztb3a6ILAGIZmfoNTpHc1FjTLrO+sFYrNllEI=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "8952a89db588db10a9dba16356f9bbd35ca5fabb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "neovim",
+        "type": "github"
+      }
+    },
     "nil": {
       "inputs": {
         "flake-utils": [
@@ -94,11 +110,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1705303754,
-        "narHash": "sha256-loWkd7lUzSvGBU9xnva37iPB2rr5ulq1qBLT44KjzGA=",
+        "lastModified": 1708373374,
+        "narHash": "sha256-yEyDvDj/YQc4GOZa/cXx6YUzexD8uv1rUvD6SJVr6UI=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e0629618b4b419a47e2c8a3cab223e2a7f3a8f97",
+        "rev": "93e1c2d08467d1117ebac45689469613a9fe8453",
         "type": "github"
       },
       "original": {
@@ -126,6 +142,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "neovim": "neovim",
         "nil": "nil",
         "nixpkgs": "nixpkgs",
         "vim-plugins": "vim-plugins"
@@ -326,11 +343,11 @@
       },
       "locked": {
         "dir": "sources",
-        "lastModified": 1704089937,
-        "narHash": "sha256-P7IYXGf+KQeme5daj4S9xOk9khNuGmJsuKGlydZwrM0=",
+        "lastModified": 1708396787,
+        "narHash": "sha256-Q9tWv2aU95pEoHECDqm5+sHkgE+d9c1kPIkSIyLU8no=",
         "owner": "aiotter",
         "repo": "neovim",
-        "rev": "c9ff1f8a60719d87599bfc8c477afabb58796881",
+        "rev": "c599aee31951dd078806600c2afc87837f82bf4a",
         "type": "github"
       },
       "original": {
