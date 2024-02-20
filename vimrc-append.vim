@@ -23,6 +23,21 @@ elseif has('vim_starting')
     set clipboard+=unnamed
 endif
 
+if !empty($TMUX)
+  let g:clipboard = {
+\   'name': 'tmux',
+\   'copy': {
+\      '+': ['tmux', 'load-buffer', '-'],
+\      '*': ['tmux', 'load-buffer', '-'],
+\    },
+\   'paste': {
+\      '+': ['tmux', 'save-buffer', '-'],
+\      '*': ['tmux', 'save-buffer', '-'],
+\   },
+\   'cache_enabled': 1,
+\ }
+endif
+
 
 " ----- 制御文字の表示 -----
 set list
