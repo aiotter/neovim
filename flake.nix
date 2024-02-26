@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    neovim.url = "github:neovim/neovim";
+    neovim.url = "github:neovim/neovim/4e59422e1d4950a3042bad41a7b81c8db4f8b648";
     neovim.flake = false;
     vim-plugins.url = "github:aiotter/neovim?dir=sources";
     vim-plugins.inputs.nixpkgs.follows = "nixpkgs";
