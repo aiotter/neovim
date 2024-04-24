@@ -14,7 +14,7 @@ if not configs.erlls then
       -- },
       capabilities = vim.tbl_deep_extend(
         "force",
-        lspconfig.util.default_config.capabilities,
+        util.default_config.capabilities,
         {
           general = { positionEncodings = { "utf-16" } },
           workspace = { workspaceEdit = { documentChanges = true } },
