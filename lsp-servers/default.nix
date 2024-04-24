@@ -13,8 +13,8 @@ let
   # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
 
   pylsp = pkgs.python3.withPackages (
-    ps: with ps; [ python-lsp-server pyls-isort pylsp-mypy ]
-      ++ python-lsp-server.optional-dependencies.all
+    ps: with ps; [ python-lsp-server pyls-isort /** pylsp-mypy **/ ]
+      ++ (with python-lsp-server.optional-dependencies; builtins.concatLists [ pycodestyle autopep8 ])
   );
 in
 
@@ -27,12 +27,20 @@ in
 
   lspconfig.erlls.setup { cmd = { "${erlls}/bin/erlls" } }
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
-  lspconfig.nil_ls.setup { cmd = { "${pkgs.nil}/bin/nil" } }
   lspconfig.pyright.setup { cmd = { "${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
-  lspconfig.zls.setup { cmd = { "${pkgs.zls}/bin/zls" } }
+  -- lspconfig.zls.setup { cmd = { "$${pkgs.zls}/bin/zls" } } -- https://github.com/NixOS/nixpkgs/issues/290102
 
+
+  lspconfig.nil_ls.setup {
+    cmd = { "${pkgs.nil}/bin/nil" },
+    settings = {
+      ['nil'] = {
+        formatting = { command = { "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" } },
+      },
+    },
+  }
 
   local prettier = {
     formatCommand = "${pkgs.nodePackages.prettier}/bin/prettier --stdin-filepath ''${INPUT}",
@@ -83,9 +91,18 @@ in
     settings = {
       pylsp = {
         plugins = {
-          autopep8 = { enabled = false },
-          flake8 = { enabled = true },
-          pylint = { enabled = true },
+          autopep8 = { enabled = true },
+          jedi_completion = { enabled = false },
+          jedi_definition = { enabled = false },
+          jedi_hover = { enabled = false },
+          jedi_references = { enabled = false },
+          jedi_signature_help = { enabled = false },
+          jedi_symbols = { enabled = false },
+          mccabe = { enabled = false },
+          preload = { enabled = false },
+          pycodestyle = { enabled = true },
+          pyflakes = { enabled = false },
+          yapf = { enabled = false },
           rope_autoimport = { enabled = true },
         },
       },
