@@ -163,8 +163,8 @@ set ruler " ステータスラインの右側にカーソルの現在位置を�
 
 " ----- ファイルタイプ固有の設定 -----
 filetype plugin indent on
-" sw=softtabstop    タブ文字を何文字で表示するか
-" sts=shiftwidth    入力したタブ文字を空白何文字に置換するか
+" sw=shiftwidth     タブ文字を何文字で表示するか
+" sts=softtabstop   入力したタブ文字を空白何文字に置換するか
 " ts=tabstop        自動インデントは空白何文字を用いるか
 " et=expandtab      ソフトタブを使用 (タブ文字を空白に置換)
 " noet=noexpandtab  ハードタブを使用
