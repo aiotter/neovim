@@ -7,6 +7,7 @@
 
     vim-cheatsheet = { url = "github:reireias/vim-cheatsheet"; flake = false; };
     vim-dichromatic = { url = "github:romainl/vim-dichromatic"; flake = false; };
+    vim-helm = { url = "github:towolf/vim-helm"; flake = false; };
     vim-precious = { url = "github:osyo-manga/vim-precious"; flake = false; };
     vim-mdx-js = { url = "github:jxnblk/vim-mdx-js"; flake = false; };
     vim-textobj-indent = { url = "github:kana/vim-textobj-indent"; flake = false; };
