@@ -8,6 +8,10 @@
         enable = true,
         disable = {},
       },
+      indent = {
+        enable = true,
+        disable = { "markdown" },
+      },
     }
 
     -- Remove conceal in some languages

@@ -4,7 +4,8 @@
   plugin = vim-peekaboo;
   optional = true;
   config = ''
-    autocmd BufWinEnter * :packadd vim-peekaboo
+    " peakaboo is buggy with oil
+    autocmd BufWinEnter * :if &ft!~ 'oil' | packadd vim-peekaboo | endif
 
     let g:peekaboo_delay = 500
     let g:peekaboo_window="call CreateCenteredFloatingWindow()"
