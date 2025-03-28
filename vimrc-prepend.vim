@@ -32,7 +32,24 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 )
 
 local handlers = require("vim.lsp.handlers")
-handlers["textDocument/hover"] = vim.lsp.with(handlers.hover, { border = "single" })
+-- handlers["textDocument/hover"] = vim.lsp.with(handlers.hover, { border = "single" })
+handlers["textDocument/hover"] =
+  function(err, result, ctx, config)
+    local handler = vim.lsp.with(handlers.hover, { border = "single" })
+
+    -- Return value: vim.lsp.util.open_floating_preview()
+    local bufnr, winid = handler(err, result, ctx, config)
+    if not bufnr or not winid then return end
+
+    vim.keymap.set("n", "<ESC>", function()
+      if not vim.api.nvim_win_is_valid(winid) then
+        vim.keymap.del("n", "<ESC>", { buffer = true })
+        vim.cmd.normal("\\<Esc>")
+        return
+      end
+      vim.api.nvim_win_close(winid, false)
+    end, { buffer = true })
+  end
 
 vim.diagnostic.config({
   severity_sort = true,
@@ -67,4 +84,14 @@ vim.api.nvim_create_user_command("LspCapabilities", function()
 end, {})
 
 -- require("vim.lsp.log").set_level(vim.log.levels.DEBUG)
+
+-- Close floating window by ESC
+vim.keymap.set('n', '<Esc>', function()
+  if vim.api.nvim_win_get_config(0).relative ~= "" then
+    vim.cmd.wincmd('c')
+  else
+    vim.cmd.normal("\\<Esc>")
+  end
+end)
+
 EOF

@@ -22,20 +22,20 @@ if has('nvim')
 elseif has('vim_starting')
     set clipboard+=unnamed
 endif
-lua <<EOF
-  local osc52 = require('vim.ui.clipboard.osc52')
-  vim.g.clipboard = {
-    name = 'OSC 52',
-    copy = {
-      ['+'] = osc52.copy('+'),
-      ['*'] = osc52.copy('*'),
-    },
-    paste = {
-      ['+'] = osc52.paste('+'),
-      ['*'] = osc52.paste('*'),
-    },
-  }
-EOF
+" lua <<EOF
+"   local osc52 = require('vim.ui.clipboard.osc52')
+"   vim.g.clipboard = {
+"     name = 'OSC 52',
+"     copy = {
+"       ['+'] = osc52.copy('+'),
+"       ['*'] = osc52.copy('*'),
+"     },
+"     paste = {
+"       ['+'] = osc52.paste('+'),
+"       ['*'] = osc52.paste('*'),
+"     },
+"   }
+" EOF
 
 
 " ----- 制御文字の表示 -----
@@ -61,7 +61,7 @@ set expandtab " タブ入力を複数の空白入力に置き換える
 set tabstop=4 " 画面上でタブ文字が占める幅
 set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent " 改行時に前の行のインデントを継続する
-set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+" set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=2 " smartindentで増減する幅
 
 
@@ -159,6 +159,10 @@ set laststatus=2 " ステータスラインを常に表示
 set noshowmode " 現在のモードを非表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
+
+" ----- サインカラム -----
+set signcolumn=yes " 常に表示
 
 
 " ----- ファイルタイプ固有の設定 -----
