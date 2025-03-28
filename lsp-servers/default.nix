@@ -6,7 +6,7 @@
 { pkgs }:
 
 let
-  erlls = pkgs.callPackage ./erlls {};
+  erlls = pkgs.callPackage ./erlls { };
   # next-ls = pkgs.callPackage ./next-ls {};
 
   elixirls = pkgs.fetchzip {
