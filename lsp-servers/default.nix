@@ -43,7 +43,7 @@ in
 
   lspconfig.erlls.setup { cmd = { "${erlls}/bin/erlls" } }
   lspconfig.gopls.setup { cmd = { "${pkgs.gopls}/bin/gopls" } }
-  lspconfig.pyright.setup { cmd = { "${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio" } }
+  lspconfig.pyright.setup { cmd = { "${pkgs.pyright}/bin/pyright-langserver", "--stdio" } }
   lspconfig.svelte.setup { cmd = { "${pkgs.nodePackages.svelte-language-server}/bin/svelteserver", "--stdio" } }
   lspconfig.terraformls.setup { cmd = { "${pkgs.terraform-ls}/bin/terraform-ls", "serve" } }
   -- lspconfig.zls.setup { cmd = { "$${pkgs.zls}/bin/zls" } } -- https://github.com/NixOS/nixpkgs/issues/290102
