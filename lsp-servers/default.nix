@@ -135,6 +135,7 @@ in
   lspconfig.ts_ls.setup {
     cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" },
     root_dir = util.root_pattern("tsconfig.json"),
+    single_file_support = false,
   }
 
   lspconfig.pylsp.setup {
