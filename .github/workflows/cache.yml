@@ -19,5 +19,5 @@ jobs:
         with:
           name: aiotter
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-      - run: nix build
-      - run: nix flake check
+      - run: nix build --option accept-flake-config true
+      - run: nix flake check --option accept-flake-config true

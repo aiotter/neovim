@@ -75,4 +75,9 @@
         { default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; }; })
       vim-plugins.packages;
   };
+
+  # On Darwin, sandbox must be off
+  # https://github.com/NixOS/nix/issues/4119
+  # https://github.com/NixOS/nix/pull/12570
+  nixConfig.sandbox = false;
 }
