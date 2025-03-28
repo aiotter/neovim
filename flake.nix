@@ -24,6 +24,9 @@
       vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
       callVimPlugin = pkgs.lib.callPackageWith (vimPlugins // pkgs);
       allPlugins = map (fileName: callVimPlugin ./plugins/${fileName} { }) (builtins.attrNames (builtins.readDir ./plugins));
+      lspServers = import ./lsp-servers { inherit pkgs; };
+      additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
+
       neovimConfigOriginal = pkgs.neovimUtils.makeNeovimConfig {
         # beforePlugins = ""; # <- no such config for neovim
         customRC = builtins.readFile ./vimrc-append.vim;
@@ -32,7 +35,7 @@
       neovimConfigFinal = neovimConfigOriginal // {
         neovimRcContent = builtins.concatStringsSep "\n\n" [
           (builtins.readFile ./vimrc-prepend.vim)
-          (import ./lsp-servers { inherit pkgs; })
+          lspServers.neovimConfig
           (neovimConfigOriginal.neovimRcContent)
           (
             let
@@ -55,8 +58,11 @@
             ''
           )
         ];
-        wrapperArgs = neovimConfigOriginal.wrapperArgs ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' ];
+        wrapperArgs = neovimConfigOriginal.wrapperArgs
+          ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' "--prefix" "PATH" ":" additionalPath ];
+        autoconfigure = true;
       };
+
       neovim-nightly-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; };
     in
     {
