@@ -7,7 +7,6 @@
 
 let
   erlls = pkgs.callPackage ./erlls {};
-  tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
   # next-ls = pkgs.callPackage ./next-ls {};
 
   elixirls = pkgs.fetchzip {
@@ -23,6 +22,8 @@ let
   #   '';
   #   dontFixup = true;
   # });
+
+  # tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
 
   # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
   # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
@@ -121,9 +122,9 @@ in
       disable_autoupdate = true;
     })}" } }
 
-  lspconfig.tailwindcss.setup {
-    cmd = { "${tailwindcss-lsp}/bin/tailwindcss-language-server", "--stdio" }
-  }
+  -- lspconfig.tailwindcss.setup {
+  --   cmd = { "$\{tailwindcss-lsp}/bin/tailwindcss-language-server", "--stdio" }
+  -- }
 
   lspconfig.denols.setup {
     cmd = { "${pkgs.deno}/bin/deno", "lsp" },
