@@ -66,13 +66,13 @@
       neovim = self.packages.${prev.system}.default;
     };
 
-    defaultPackage = builtins.mapAttrs
+    packages = builtins.mapAttrs
       (system: _:
         let
           pkgs = nixpkgs.legacyPackages.${system};
           neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; doInstallCheck = false; };
         in
-        self.lib.makeCustomNeovim { inherit system neovim-unwrapped; })
+        { default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; }; })
       vim-plugins.packages;
   };
 }
