@@ -6,7 +6,7 @@ lspconfig.erlls.setup {}
 lspconfig.gopls.setup {}
 lspconfig.pyright.setup {}
 lspconfig.svelte.setup {}
-lspconfig.terraform.setup {}
+lspconfig.terraform_lsp.setup {}
 -- lspconfig.zls.setup {} -- https://github.com/NixOS/nixpkgs/issues/290102
 
 -- lspconfig.nextls.setup {

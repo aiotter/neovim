@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    neovim.url = "github:neovim/neovim/4e59422e1d4950a3042bad41a7b81c8db4f8b648";
+    neovim.url = "github:neovim/neovim";
     neovim.flake = false;
-    vim-plugins.url = "github:aiotter/neovim?dir=sources";
+    vim-plugins.url = "path:./sources";
     vim-plugins.inputs.nixpkgs.follows = "nixpkgs";
     nil.url = "github:oxalica/nil";
     nil.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,18 +18,21 @@
         pkgs = import nixpkgs { inherit system overlays; };
         vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
         callVimPlugin = pkgs.lib.callPackageWith (vimPlugins // pkgs);
-        allPlugins = map (fileName: callVimPlugin ./plugins/${fileName} { }) (builtins.attrNames (builtins.readDir ./plugins));
+        allPlugins = map
+          (fileName: pkgs.lib.filterAttrs (n: _: builtins.elem n [ "plugin" "config" "optional" ]) (callVimPlugin ./plugins/${fileName} { }))
+          (builtins.attrNames (builtins.readDir ./plugins));
         lspServers = import ./lsp-servers { inherit pkgs; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
 
         neovimConfigOriginal = pkgs.neovimUtils.makeNeovimConfig {
-          # beforePlugins = ""; # <- no such config for neovim
           customRC = builtins.readFile ./vimrc-append.vim;
-          plugins = allPlugins;
+          plugins = [
+            # dummy plugin to read vimrc-prepend.vim at the beginning
+            { plugin = pkgs.hello; config = builtins.readFile ./vimrc-prepend.vim; }
+          ] ++ allPlugins;
         };
         neovimConfigFinal = neovimConfigOriginal // {
           neovimRcContent = builtins.concatStringsSep "\n\n" [
-            (builtins.readFile ./vimrc-prepend.vim)
             lspServers.neovimConfig
             (neovimConfigOriginal.neovimRcContent)
             (
@@ -55,7 +58,6 @@
           ];
           wrapperArgs = neovimConfigOriginal.wrapperArgs
             ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' "--prefix" "PATH" ":" additionalPath ];
-          autoconfigure = true;
         };
       in
       pkgs.wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
@@ -68,7 +70,7 @@
       (system: _:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; };
+          neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; doInstallCheck = false; };
         in
         self.lib.makeCustomNeovim { inherit system neovim-unwrapped; })
       vim-plugins.packages;

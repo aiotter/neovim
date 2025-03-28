@@ -1,7 +1,7 @@
 set encoding=utf-8
 scriptencoding utf-8
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\<Space>"
 
 
 " ----- LSP ----- 
@@ -9,10 +9,23 @@ let maplocalleader = "\<Space>"
 " Execute default K by gK
 nnoremap gK K
 
-" Hover definition (invoke with K)
-nmap K <cmd>lua vim.lsp.buf.hover()<CR>
-
 lua <<EOF
+-- Hover definition (invoke with K)
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "single" })
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  vim.keymap.set("n", "<ESC>", function()
+    local winid = vim.b[bufnr].lsp_floating_preview
+    if vim.api.nvim_win_is_valid(winid) then
+      vim.api.nvim_win_close(winid, false)
+    else
+      vim.keymap.del("n", "<ESC>", { buffer = true })
+      vim.cmd.normal("\\<Esc>")
+    end
+  end, { buffer = true })
+end)
+
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -30,26 +43,6 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
     capabilities = require('cmp_nvim_lsp').default_capabilities(),
   }
 )
-
-local handlers = require("vim.lsp.handlers")
--- handlers["textDocument/hover"] = vim.lsp.with(handlers.hover, { border = "single" })
-handlers["textDocument/hover"] =
-  function(err, result, ctx, config)
-    local handler = vim.lsp.with(handlers.hover, { border = "single" })
-
-    -- Return value: vim.lsp.util.open_floating_preview()
-    local bufnr, winid = handler(err, result, ctx, config)
-    if not bufnr or not winid then return end
-
-    vim.keymap.set("n", "<ESC>", function()
-      if not vim.api.nvim_win_is_valid(winid) then
-        vim.keymap.del("n", "<ESC>", { buffer = true })
-        vim.cmd.normal("\\<Esc>")
-        return
-      end
-      vim.api.nvim_win_close(winid, false)
-    end, { buffer = true })
-  end
 
 vim.diagnostic.config({
   severity_sort = true,

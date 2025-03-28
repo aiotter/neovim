@@ -40,7 +40,7 @@ endif
 
 " ----- 制御文字の表示 -----
 set list
-set listchars=tab:▸\ ,eol:↲,extends:»,precedes:«,nbsp:⚋ ",trail:-
+set listchars=tab:▸\ ,eol:↲,extends:»,precedes:« ",nbsp:⚋ ,trail:-
 autocmd ColorScheme * highlight NonText    ctermbg=NONE ctermfg=238 guibg=NONE guifg='#444444'
 autocmd ColorScheme * highlight SpecialKey ctermbg=NONE ctermfg=238 guibg=NONE guifg='#444444'
 
