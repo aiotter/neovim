@@ -8,6 +8,21 @@
 let
   erlls = pkgs.callPackage ./erlls {};
   tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
+  # next-ls = pkgs.callPackage ./next-ls {};
+
+  elixirls = pkgs.fetchzip {
+    url = "https://github.com/elixir-lsp/elixir-ls/releases/download/v0.23.0/elixir-ls-v0.23.0.zip";
+    hash = "sha256-bwYV2mgxgifZVX0qY2cl/gM/sWPCAGCrO3C/eKoTYV8=";
+    stripRoot = false;
+  };
+
+  # lexical = (pkgs.lexical.override { beamPackages = pkgs.beam.packages.erlang_25; }).overrideAttrs (prev: {
+  #   postInstall = ''
+  #     rm $out/bin/activate_version_manager.sh
+  #     substituteInPlace "$out/bin/start_lexical.sh" --replace 'elixir_command=' 'elixir_command="${pkgs.beam.packages.erlang_25.elixir_1_14}/bin/"'
+  #   '';
+  #   dontFixup = true;
+  # });
 
   # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
   # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
@@ -33,11 +48,46 @@ in
   -- lspconfig.zls.setup { cmd = { "$${pkgs.zls}/bin/zls" } } -- https://github.com/NixOS/nixpkgs/issues/290102
 
 
-  lspconfig.nil_ls.setup {
-    cmd = { "${pkgs.nil}/bin/nil" },
+  lspconfig.elixirls.setup {
+    cmd = { "sh", "${elixirls}/language_server.sh" },
     settings = {
-      ['nil'] = {
-        formatting = { command = { "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" } },
+      elixirLS = {
+        dialyzerWarnOpts = { "no_missing_calls" },
+      },
+    },
+  }
+
+  -- lspconfig.lexical.setup {
+  --   -- cmd = { "$${lexical}/bin/start_lexical.sh" },
+  --   cmd = { "/Users/aiotter/repo/github.com/lexical-lsp/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  -- }
+
+  -- lspconfig.nextls.setup {
+  --   cmd = { "$${next-ls}", "--stdio" },
+  --   init_options = {
+  --     -- extensions = {
+  --     --   credo = { enable = true }
+  --     -- },
+  --     experimental = {
+  --       completions = { enable = true }
+  --     }
+  --   }
+  -- }
+
+  -- lspconfig.nil_ls.setup {
+  --   cmd = { "$${pkgs.nil}/bin/nil" },
+  --   settings = {
+  --     ['nil'] = {
+  --       formatting = { command = { "$${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" } },
+  --     },
+  --   },
+  -- }
+
+  lspconfig.nixd.setup {
+    cmd = { "${with pkgs; lib.getExe nixd}" },
+    settings = {
+      nixd = {
+        formatting = { command = { "${with pkgs; lib.getExe nixpkgs-fmt}" } },
       },
     },
   }
