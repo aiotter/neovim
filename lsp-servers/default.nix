@@ -132,7 +132,7 @@ in
     root_dir = util.root_pattern("deno.json", "deno.jsonc"),
   }
 
-  lspconfig.tsserver.setup {
+  lspconfig.ts_ls.setup {
     cmd = { "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server", "--stdio" },
     root_dir = util.root_pattern("tsconfig.json"),
   }
