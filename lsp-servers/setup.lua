@@ -72,3 +72,6 @@ lspconfig.pylsp.setup {
     },
   },
 }
+
+lspconfig.tilt_ls.setup {}
+vim.treesitter.language.register("starlark", "tiltfile")
