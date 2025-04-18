@@ -70,7 +70,15 @@
       (system: _:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs { src = neovim; doInstallCheck = false; };
+          neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs {
+            src = neovim;
+            doInstallCheck = false;
+            patches = pkgs.fetchpatch {
+              url = "https://github.com/neovim/neovim/pull/33421.patch";
+              hash = "sha256-+llX3rfNMx5C89+kkxvxviafHdBBjOvs/shze9f79PE=";
+              revert = true;
+            };
+          };
         in
         { default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; }; })
       vim-plugins.packages;
