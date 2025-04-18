@@ -6,21 +6,19 @@ let
 in
 {
   plugin = rust-tools-nvim;
-  config = ''
-    lua <<EOF
-      require("rust-tools").setup {
-        tools = {
-          inlay_hints = {
-            -- parameter_hints_prefix = " <- ",
-            -- other_hints_prefix = " => ",
-            max_len_align = true,
-            highlight = "NonText",
-          },
+  config.lua = ''
+    require("rust-tools").setup {
+      tools = {
+        inlay_hints = {
+          -- parameter_hints_prefix = " <- ",
+          -- other_hints_prefix = " => ",
+          max_len_align = true,
+          highlight = "NonText",
         },
-        server = {
-          cmd = { "${rust-analyzer-with-rustfmt}/bin/rust-analyzer" },
-        },
-      }
-    EOF
+      },
+      server = {
+        cmd = { "${rust-analyzer-with-rustfmt}/bin/rust-analyzer" },
+      },
+    }
   '';
 }

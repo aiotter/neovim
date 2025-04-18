@@ -16,11 +16,18 @@
       let
         overlays = with inputs; map (input: input.overlays.default) [ nil ];
         pkgs = import nixpkgs { inherit system overlays; };
+        inherit (pkgs) lib;
         vimPlugins = pkgs.vimPlugins // vim-plugins.packages.${system};
-        callVimPlugin = pkgs.lib.callPackageWith (vimPlugins // pkgs);
+        withLuaConfig = pluginPkg: luaConfig: pluginPkg.overrideAttrs (prev: { passthru = prev.passthru // { initLua = lib.concatStringsSep "\n" (lib.flatten [ (prev.passthru.initLua or [ ]) luaConfig ]); }; });
+        callVimPlugin = lib.callPackageWith (vimPlugins // pkgs);
+        normalizePlugin = lib.filterAttrs (n: _: builtins.elem n [ "plugin" "config" "optional" ]);
+        processLuaConfig = plugin:
+          # { plugin, config.lua, optional } -> { plugin.passthru.initLua, optional }
+          if lib.hasAttrByPath ["config" "lua"] plugin then { plugin = withLuaConfig plugin.plugin plugin.config.lua; optional = plugin.optional or false; } else plugin;
         allPlugins = map
-          (fileName: pkgs.lib.filterAttrs (n: _: builtins.elem n [ "plugin" "config" "optional" ]) (callVimPlugin ./plugins/${fileName} { }))
+          (fileName: processLuaConfig (normalizePlugin (callVimPlugin ./plugins/${fileName} { })))
           (builtins.attrNames (builtins.readDir ./plugins));
+
         lspServers = import ./lsp-servers { inherit pkgs; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
 

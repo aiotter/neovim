@@ -1,7 +1,6 @@
 { vim-matchup }: {
   plugin = vim-matchup;
-  config = ''
-    lua <<EOF
+  config.lua = ''
     require'nvim-treesitter.configs'.setup {
       matchup = {
         enable = true,  -- mandatory, false will disable the whole extension
@@ -9,6 +8,5 @@
         -- [options]
       },
     }
-    EOF
   '';
 }

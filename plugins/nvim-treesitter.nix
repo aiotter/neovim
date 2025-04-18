@@ -1,8 +1,7 @@
 # https://nixos.wiki/wiki/Tree_sitters
 { nvim-treesitter }: {
   plugin = nvim-treesitter.withAllGrammars;
-  config = ''
-    lua <<EOF
+  config.lua = ''
     require'nvim-treesitter.configs'.setup {
       highlight = {
         enable = true,
@@ -26,6 +25,5 @@
     --   end
     --   query.set(lang, 'highlights', table.concat(queries, '\n'))
     -- end
-    EOF
   '';
 }
