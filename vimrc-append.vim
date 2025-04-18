@@ -59,10 +59,10 @@ endif
 " ----- タブとインデント (グローバル設定) -----
 set expandtab " タブ入力を複数の空白入力に置き換える
 set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
+set softtabstop=2 " タブの代わりに入力される空白文字の数
+set shiftwidth=2 " >> や自動インデントで増減する幅
 set autoindent " 改行時に前の行のインデントを継続する
 " set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=2 " smartindentで増減する幅
 
 
 " ----- 検索 -----
@@ -167,16 +167,6 @@ set signcolumn=yes " 常に表示
 
 " ----- ファイルタイプ固有の設定 -----
 filetype plugin indent on
-" sw=shiftwidth     タブ文字を何文字で表示するか
-" sts=softtabstop   入力したタブ文字を空白何文字に置換するか
-" ts=tabstop        自動インデントは空白何文字を用いるか
-" et=expandtab      ソフトタブを使用 (タブ文字を空白に置換)
-" noet=noexpandtab  ハードタブを使用
-autocmd FileType c           setlocal sw=4 sts=4 ts=4 et
-autocmd FileType gitconfig   setlocal sw=4 ts=4 noet
-autocmd FileType python      setlocal sw=4 sts=4 ts=4 et
-
-let g:html_indent_autotags = 1
 
 
 " ----- スペルチェック -----
