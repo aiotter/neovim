@@ -183,6 +183,7 @@ let g:html_indent_autotags = 1
 set spell
 set spelllang=en,cjk
 set spelloptions=camel
+set spellcapcheck=
 
 
 " ----- 補完 -----
