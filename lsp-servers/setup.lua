@@ -31,7 +31,7 @@ lspconfig.terraformls.setup {}
 lspconfig.nixd.setup {
   settings = {
     nixd = {
-      formatting = { command = { "nixpkgs-fmt" } },
+      formatting = { command = { "nixfmt" } },
     },
   },
 }
