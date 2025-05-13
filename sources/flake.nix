@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
 
     vim-cheatsheet = { url = "github:reireias/vim-cheatsheet"; flake = false; };
     vim-dichromatic = { url = "github:romainl/vim-dichromatic"; flake = false; };
@@ -27,14 +26,14 @@
     askpass-vim = { url = "github:lambdalisue/askpass.vim"; flake = false; };
   };
 
-  outputs = { nixpkgs, flake-utils, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs: {
     # Deno is not supported on i686-linux
-    with flake-utils.lib; eachSystem (nixpkgs.lib.lists.remove system.i686-linux defaultSystems) (system:
+    packages = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "i686-linux" nixpkgs.lib.systems.flakeExposed) (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         vimPlugins = pkgs.vimPlugins;
         buildSimpleVimPlugins = builtins.mapAttrs (pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; });
-        myVimPlugins = self: buildSimpleVimPlugins (pkgs.lib.filterAttrs (name: _: ! builtins.elem name ["nixpkgs" "flake-utils" "self"]) inputs);
+        myVimPlugins = self: buildSimpleVimPlugins (pkgs.lib.filterAttrs (name: _: ! builtins.elem name ["self" "nixpkgs"]) inputs);
         addDeps = package: dependencies: package.overrideAttrs { inherit dependencies; };
 
         overrides = self: super: {
@@ -67,5 +66,7 @@
           };
         };
       in
-      { packages = with pkgs.lib; fix (extends overrides myVimPlugins); });
+      with pkgs.lib; fix (extends overrides myVimPlugins)
+    );
+  };
 }
