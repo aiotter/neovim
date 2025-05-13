@@ -47,7 +47,7 @@
             dontBuild = true;
             dontPatchShebangs = true;
             preFixup = ''
-              sed -i '1 s#deno#${pkgs.deno}/bin/deno#' $out/denops/askpass/cli.ts
+              sed -i '1 s#deno#${pkgs.deno}/bin/deno run --no-lock#' $out/denops/askpass/cli.ts
             '';
             dependencies = [ vimPlugins.denops-vim ];
           };
