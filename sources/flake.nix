@@ -62,11 +62,12 @@
             dependencies = [ final.denops-vim ];
           };
         };
-
-        buildVimPlugin = pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; };
-        pluginSources = builtins.removeAttrs self.inputs ["nixpkgs"];
       in
-      with pkgs.lib; fix (extends overlay (self: builtins.mapAttrs buildVimPlugin pluginSources))
+      builtins.removeAttrs self.inputs ["nixpkgs"]
+      |> builtins.mapAttrs (pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; })
+      |> pkgs.lib.toFunction
+      |> pkgs.lib.extends overlay
+      |> pkgs.lib.fix
     );
   };
 }
