@@ -27,8 +27,7 @@
   };
 
   outputs = { self, nixpkgs, ... }: {
-    # Deno is not supported on i686-linux
-    packages = nixpkgs.lib.genAttrs (nixpkgs.lib.remove "i686-linux" nixpkgs.lib.systems.flakeExposed) (system:
+    packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         addDeps = package: dependencies: package.overrideAttrs { inherit dependencies; };
