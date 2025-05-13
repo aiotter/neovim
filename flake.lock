@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "denops-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734315938,
-        "narHash": "sha256-kqvNcCX4wlvb8BVrSF+WD5uGY8zHaS2mp75y8tenMnk=",
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "rev": "4ff8f353ee54ee67288c1099242444ccb0ab5b69",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -294,7 +278,6 @@
     "vim-plugins": {
       "inputs": {
         "askpass-vim": "askpass-vim",
-        "denops-vim": "denops-vim",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -319,7 +302,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-VPeyIYAhvQxcN/t+A9FPSvq1lryJIaeilmzoJnZqDyQ=",
+        "narHash": "sha256-ux2KF/Fj+b++SnA1xsmiUNUL3Gn3iqmf3YQwaZb6iS0=",
         "path": "./sources",
         "type": "path"
       },

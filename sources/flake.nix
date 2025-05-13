@@ -22,7 +22,6 @@
     vim-emacs-bindings = { url = "github:kentarosasaki/vim-emacs-bindings"; flake = false; };
     vim-emacscommandline = { url = "github:houtsnip/vim-emacscommandline"; flake = false; };
     vim-fugitive-blame-ext = { url = "github:tommcdo/vim-fugitive-blame-ext"; flake = false; };
-    denops-vim = { url = "github:vim-denops/denops.vim"; flake = false; };
     askpass-vim = { url = "github:lambdalisue/askpass.vim"; flake = false; };
   };
 
@@ -44,21 +43,13 @@
           spelunker-vim = addDeps prev.spelunker-vim [ final.popup-menu-nvim ];
           vim-fugitive-blame-ext = addDeps prev.vim-fugitive-blame-ext [ vimPlugins.vim-fugitive ];
 
-          denops-vim = prev.denops-vim.overrideAttrs {
-            dontBuild = true;
-            patchPhase = ''
-              sed -i "s%call s:define('denops#deno', 'deno')%call s:define('denops#deno', '${pkgs.deno}/bin/deno')%" autoload/denops.vim
-            '';
-            buildInputs = [ pkgs.deno ];
-          };
-
           askpass-vim = prev.askpass-vim.overrideAttrs {
             dontBuild = true;
             dontPatchShebangs = true;
             preFixup = ''
               sed -i '1 s#deno#${pkgs.deno}/bin/deno#' $out/denops/askpass/cli.ts
             '';
-            dependencies = [ final.denops-vim ];
+            dependencies = [ vimPlugins.denops-vim ];
           };
         };
       in
