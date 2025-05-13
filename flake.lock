@@ -285,7 +285,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-P4CF4fwMfvItTTBSZCeaoc062ZHPzF2TV7OGKdjiHx0=",
+        "narHash": "sha256-zAjYpiXH8AVggCBJUOEyYlXkVN3J6QxDy4A/Va0qHqE=",
         "path": "./sources",
         "type": "path"
       },
@@ -425,11 +425,11 @@
     "vimdoc-ja": {
       "flake": false,
       "locked": {
-        "lastModified": 1742655660,
-        "narHash": "sha256-Vunb/QDlSttcPdSM4F9JDsGqPX+NliEhj9khvbJWrRE=",
+        "lastModified": 1746863077,
+        "narHash": "sha256-fVgNY7ErEaZMik7Et+Xkz2nrIfERubkiACLecEdoqjg=",
         "owner": "vim-jp",
         "repo": "vimdoc-ja",
-        "rev": "7f89e228b813a650455cbe169a3b3a3aca07259d",
+        "rev": "c2836663891f193274e358d7c028fd4b3fdc4de5",
         "type": "github"
       },
       "original": {

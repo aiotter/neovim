@@ -1,62 +1,12 @@
 {
   "nodes": {
-    "askpass-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1683554513,
-        "narHash": "sha256-XMZ8zffdU944icxxNP7ebjyeDXz68WTXb/xkDrLuTmY=",
-        "owner": "lambdalisue",
-        "repo": "askpass.vim",
-        "rev": "c40b7e296ad626ffebdf26793236a55c8e3517ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lambdalisue",
-        "repo": "askpass.vim",
-        "type": "github"
-      }
-    },
-    "denops-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734315938,
-        "narHash": "sha256-kqvNcCX4wlvb8BVrSF+WD5uGY8zHaS2mp75y8tenMnk=",
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "rev": "4ff8f353ee54ee67288c1099242444ccb0ab5b69",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vim-denops",
-        "repo": "denops.vim",
-        "type": "github"
-      }
-    },
-    "flake-utils": {
-      "inputs": {
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1731533236,
-        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1743076231,
-        "narHash": "sha256-yQugdVfi316qUfqzN8JMaA2vixl+45GxNm4oUfXlbgw=",
+        "lastModified": 1747060738,
+        "narHash": "sha256-ByfPRQuqj+nhtVV0koinEpmJw0KLzNbgcgi9EF+NVow=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6c5963357f3c1c840201eda129a99d455074db04",
+        "rev": "eaeed9530c76ce5f1d2d8232e08bec5e26f18ec1",
         "type": "github"
       },
       "original": {
@@ -83,9 +33,6 @@
     },
     "root": {
       "inputs": {
-        "askpass-vim": "askpass-vim",
-        "denops-vim": "denops-vim",
-        "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
         "popup-menu-nvim": "popup-menu-nvim",
         "spelunker-vim": "spelunker-vim",
@@ -120,21 +67,6 @@
       "original": {
         "owner": "kamykn",
         "repo": "spelunker.vim",
-        "type": "github"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
         "type": "github"
       }
     },
@@ -381,11 +313,11 @@
     "vimdoc-ja": {
       "flake": false,
       "locked": {
-        "lastModified": 1742655660,
-        "narHash": "sha256-Vunb/QDlSttcPdSM4F9JDsGqPX+NliEhj9khvbJWrRE=",
+        "lastModified": 1746863077,
+        "narHash": "sha256-fVgNY7ErEaZMik7Et+Xkz2nrIfERubkiACLecEdoqjg=",
         "owner": "vim-jp",
         "repo": "vimdoc-ja",
-        "rev": "7f89e228b813a650455cbe169a3b3a3aca07259d",
+        "rev": "c2836663891f193274e358d7c028fd4b3fdc4de5",
         "type": "github"
       },
       "original": {
