@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "askpass-vim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1683554513,
-        "narHash": "sha256-XMZ8zffdU944icxxNP7ebjyeDXz68WTXb/xkDrLuTmY=",
-        "owner": "lambdalisue",
-        "repo": "askpass.vim",
-        "rev": "c40b7e296ad626ffebdf26793236a55c8e3517ca",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lambdalisue",
-        "repo": "askpass.vim",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -277,7 +261,6 @@
     },
     "vim-plugins": {
       "inputs": {
-        "askpass-vim": "askpass-vim",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -302,7 +285,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-lLvoeuYbPmkzjgTg1Z7QF2sOoi4PtuxEDEW0LCkdHj4=",
+        "narHash": "sha256-P4CF4fwMfvItTTBSZCeaoc062ZHPzF2TV7OGKdjiHx0=",
         "path": "./sources",
         "type": "path"
       },
