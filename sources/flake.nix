@@ -34,33 +34,37 @@
         pkgs = nixpkgs.legacyPackages.${system};
         vimPlugins = pkgs.vimPlugins;
         buildSimpleVimPlugins = builtins.mapAttrs (pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; });
-        myVimPlugins = self: buildSimpleVimPlugins (pkgs.lib.attrsets.filterAttrs (name: _: name != "nixpkgs" && name != "flake-utils" && name != "self") inputs);
+        myVimPlugins = self: buildSimpleVimPlugins (pkgs.lib.filterAttrs (name: _: ! builtins.elem name ["nixpkgs" "flake-utils" "self"]) inputs);
+        addDeps = package: dependencies: package.overrideAttrs { inherit dependencies; };
+
         overrides = self: super: {
-          vim-precious = super.vim-precious.overrideAttrs (old: { dependencies = [ vimPlugins.context_filetype-vim ]; });
-          vim-textobj-indent = super.vim-textobj-indent.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-textobj-line = super.vim-textobj-line.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-textobj-parameter = super.vim-textobj-parameter.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-textobj-underscore = super.vim-textobj-underscore.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-textobj-uri = super.vim-textobj-uri.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-textobj-word-column = super.vim-textobj-word-column.overrideAttrs (old: { dependencies = [ vimPlugins.vim-textobj-user ]; });
-          vim-quickrun = super.vim-quickrun.overrideAttrs (old: { dependencies = [ vimPlugins.vimproc-vim ]; });
-          spelunker-vim = super.spelunker-vim.overrideAttrs (old: { dependencies = [ self.popup-menu-nvim ]; });
-          vim-fugitive-blame-ext = super.vim-fugitive-blame-ext.overrideAttrs (old: { dependencies = [ vimPlugins.vim-fugitive ]; });
-          denops-vim = super.denops-vim.overrideAttrs (old: {
+          vim-precious = addDeps super.vim-precious [ vimPlugins.context_filetype-vim ];
+          vim-textobj-indent = addDeps super.vim-textobj-indent [ vimPlugins.vim-textobj-user ];
+          vim-textobj-line = addDeps super.vim-textobj-line [ vimPlugins.vim-textobj-user ];
+          vim-textobj-parameter = addDeps super.vim-textobj-parameter [ vimPlugins.vim-textobj-user ];
+          vim-textobj-underscore = addDeps super.vim-textobj-underscore [ vimPlugins.vim-textobj-user ];
+          vim-textobj-uri = addDeps super.vim-textobj-uri [ vimPlugins.vim-textobj-user ];
+          vim-textobj-word-column = addDeps super.vim-textobj-word-column [ vimPlugins.vim-textobj-user ];
+          vim-quickrun = addDeps super.vim-quickrun [ vimPlugins.vimproc-vim ];
+          spelunker-vim = addDeps super.spelunker-vim [ self.popup-menu-nvim ];
+          vim-fugitive-blame-ext = addDeps super.vim-fugitive-blame-ext [ vimPlugins.vim-fugitive ];
+
+          denops-vim = super.denops-vim.overrideAttrs {
             dontBuild = true;
             patchPhase = ''
               sed -i "s%call s:define('denops#deno', 'deno')%call s:define('denops#deno', '${pkgs.deno}/bin/deno')%" autoload/denops.vim
             '';
             buildInputs = [ pkgs.deno ];
-          });
-          askpass-vim = super.askpass-vim.overrideAttrs (old: {
+          };
+
+          askpass-vim = super.askpass-vim.overrideAttrs {
             dontBuild = true;
             dontPatchShebangs = true;
             preFixup = ''
               sed -i '1 s#deno#${pkgs.deno}/bin/deno#' $out/denops/askpass/cli.ts
             '';
             dependencies = [ self.denops-vim ];
-          });
+          };
         };
       in
       { packages = with pkgs.lib; fix (extends overrides myVimPlugins); });
