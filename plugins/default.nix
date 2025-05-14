@@ -26,9 +26,10 @@ let
     else
       { inherit plugin config optional; };
 
-  importVimPlugin = path: normalizePlugin (callVimPlugin path { });
+  importVimPlugins = path: callVimPlugin path {  } |> pkgs.lib.toList |> map normalizePlugin;
 in
 
 lib.filesystem.listFilesRecursive ./.
 |> builtins.filter (f: f != ./default.nix)
-|> map importVimPlugin
+|> map importVimPlugins
+|> pkgs.lib.flatten
