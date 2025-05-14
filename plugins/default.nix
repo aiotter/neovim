@@ -9,12 +9,14 @@ let
 
   normalizePlugin =
     {
-      plugin,
+      plugin ? null,
       config ? null,
       optional ? false,
       ...
-    }:
-    if config ? lua then
+    }@input:
+    if builtins.isNull plugin then
+      { plugin = input; }
+    else if config ? lua then
       {
         plugin = plugin.overrideAttrs (prev: {
           passthru = prev.passthru // {
@@ -26,7 +28,8 @@ let
     else
       { inherit plugin config optional; };
 
-  importVimPlugins = path: callVimPlugin path {  } |> pkgs.lib.toList |> map normalizePlugin;
+  importVimPlugins =
+    path: callVimPlugin path { } |> pkgs.lib.toList |> map normalizePlugin;
 in
 
 lib.filesystem.listFilesRecursive ./.
