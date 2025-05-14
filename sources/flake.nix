@@ -24,7 +24,7 @@
     vim-fugitive-blame-ext = { url = "github:tommcdo/vim-fugitive-blame-ext"; flake = false; };
   };
 
-  outputs = { self, nixpkgs, ... }: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -43,7 +43,7 @@
           vim-fugitive-blame-ext = addDeps prev.vim-fugitive-blame-ext [ vimPlugins.vim-fugitive ];
         };
       in
-      builtins.removeAttrs self.inputs ["nixpkgs"]
+      builtins.removeAttrs inputs ["self" "nixpkgs"]
       |> builtins.mapAttrs (pname: src: pkgs.vimUtils.buildVimPlugin { inherit pname src; version = src.shortRev; })
       |> pkgs.lib.toFunction
       |> pkgs.lib.extends overlay
