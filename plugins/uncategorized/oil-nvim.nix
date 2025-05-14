@@ -12,7 +12,7 @@
           return name ~= ".." and vim.startswith(name, ".")
         end,
       },
-      cleanup_delay_ms = 20000, -- https://github.com/stevearc/oil.nvim/issues/517
+      cleanup_delay_ms = false, -- https://github.com/stevearc/oil.nvim/issues/517
     })
   '';
 }
