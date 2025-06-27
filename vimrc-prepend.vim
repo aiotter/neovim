@@ -1,5 +1,6 @@
 set encoding=utf-8
 scriptencoding utf-8
+set exrc secure
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\<Space>"
 
