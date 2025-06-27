@@ -36,61 +36,32 @@ in
 
 {
   packages = builtins.concatLists [
-    [ erlls elixirls pylsp ]
+    [ erlls pylsp ]
     (with pkgs; [ gopls pyright terraform-ls nixd nixfmt-rfc-style efm-langserver fortls deno tilt ])
-    (with pkgs.nodePackages; [ svelte-language-server typescript-language-server ])
+    (with pkgs.nodePackages; [ prettier svelte-language-server typescript-language-server ])
   ];
 
   neovimConfig = ''
     lua <<EOF
-    ${pkgs.lib.fileContents ./server_configurations.lua}
     ${pkgs.lib.fileContents ./setup.lua}
 
-    local lspconfig = require("lspconfig")
-    local util = require("lspconfig.util")
+    vim.lsp.config("elixirls", {
+      cmd = { "sh", "${elixirls}/language_server.sh" }
+    })
 
-
-    lspconfig.elixirls.setup {
-      cmd = { "sh", "${elixirls}/language_server.sh" },
-      settings = {
-        elixirLS = {
-          dialyzerWarnOpts = { "no_missing_calls" },
-        },
+    vim.lsp.config("fortls", {
+      cmd = {
+        "${pkgs.fortls}/bin/fortls",
+        "--config=${builtins.toFile ".fortls" (builtins.toJSON {
+          notify_init = true;
+          hover_signature = true;
+          hover_language = "fortran";
+          # use_signature_help = true;
+          lowercase_intrinsics = true;
+          disable_autoupdate = true;
+        })}"
       },
-    }
-
-    -- lspconfig.lexical.setup {
-    --   cmd = { "$${lexical}/bin/start_lexical.sh" },
-    -- }
-
-    local prettier = {
-      formatCommand = "${pkgs.nodePackages.prettier}/bin/prettier --stdin-filepath ''${INPUT}",
-      formatStdin = true,
-    }
-
-    lspconfig.efm.setup {
-      settings = {
-        rootMarkers = { ".prettierrc", ".git/" },
-        languages = {
-          javascript = { prettier },
-          typescript = { prettier },
-          html = { prettier },
-        },
-        -- logLevel = 4,
-      },
-      init_options = { documentFormatting = true },
-      cmd = { "${pkgs.efm-langserver}/bin/efm-langserver" },
-      filetypes = { "javascript", "typescript", "html" },
-    }
-
-    lspconfig.fortls.setup { cmd = { "${pkgs.fortls}/bin/fortls", "--config=${builtins.toFile ".fortls" (builtins.toJSON {
-        notify_init = true;
-        hover_signature = true;
-        hover_language = "fortran";
-        # use_signature_help = true;
-        lowercase_intrinsics = true;
-        disable_autoupdate = true;
-      })}" } }
+    })
     EOF
   '';
 }
