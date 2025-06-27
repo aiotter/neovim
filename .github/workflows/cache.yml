@@ -15,6 +15,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - uses: jlumbroso/free-disk-space@v1.3.1
+        if: matrix.os == 'ubuntu-latest'
+        with:
+          large-packages: false  # Too slow
       - uses: cachix/install-nix-action@v31
         with:
           nix_path: nixpkgs=channel:nixos-unstable
