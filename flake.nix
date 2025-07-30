@@ -55,7 +55,7 @@
             )
           ];
           wrapperArgs = neovimConfigOriginal.wrapperArgs
-            ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}"'' "--prefix" "PATH" ":" additionalPath ];
+            ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}" --cmd "set rtp+=${./runtime-after}"'' "--prefix" "PATH" ":" additionalPath ];
         };
       in
       pkgs.wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
