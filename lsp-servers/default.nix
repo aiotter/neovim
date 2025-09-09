@@ -6,8 +6,8 @@
 { pkgs }:
 
 let
-  erlls = pkgs.callPackage ./erlls { };
-  # next-ls = pkgs.callPackage ./next-ls {};
+  erlls = pkgs.callPackage ./packages/erlls { };
+  # next-ls = pkgs.callPackage ./packages/next-ls {};
 
   elixirls = pkgs.fetchzip {
     url = "https://github.com/elixir-lsp/elixir-ls/releases/download/v0.23.0/elixir-ls-v0.23.0.zip";
@@ -23,7 +23,7 @@ let
   #   dontFixup = true;
   # });
 
-  # tailwindcss-lsp = (import ./tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
+  # tailwindcss-lsp = (import ./packages/tailwindcss { inherit pkgs; })."@tailwindcss/language-server";
 
   # sourcekitPath = if pkgs.stdenv.isDarwin then "sourcekit-lsp" else "${pkgs.swift}/bin/sourcekit-lsp";
   # add this below: lspconfig.sourcekit.setup { cmd = { "${sourcekitPath}" } }
