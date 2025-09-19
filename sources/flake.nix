@@ -22,6 +22,7 @@
     vim-emacs-bindings = { url = "github:kentarosasaki/vim-emacs-bindings"; flake = false; };
     vim-emacscommandline = { url = "github:houtsnip/vim-emacscommandline"; flake = false; };
     vim-fugitive-blame-ext = { url = "github:tommcdo/vim-fugitive-blame-ext"; flake = false; };
+    prettierrc-nvim = { url = "github:numToStr/prettierrc.nvim"; flake = false; };
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {

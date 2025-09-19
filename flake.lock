@@ -87,6 +87,22 @@
         "type": "github"
       }
     },
+    "prettierrc-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1700231355,
+        "narHash": "sha256-LPcc32UGqZJrfxOgA0xQ0py2pdVtQJ6POWFbgNFnmaM=",
+        "owner": "numToStr",
+        "repo": "prettierrc.nvim",
+        "rev": "4183699d40388eabc1895df28b7da1cc1946a495",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numToStr",
+        "repo": "prettierrc.nvim",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "neovim": "neovim",
@@ -265,6 +281,7 @@
           "nixpkgs"
         ],
         "popup-menu-nvim": "popup-menu-nvim",
+        "prettierrc-nvim": "prettierrc-nvim",
         "spelunker-vim": "spelunker-vim",
         "vim-cheatsheet": "vim-cheatsheet",
         "vim-dichromatic": "vim-dichromatic",
