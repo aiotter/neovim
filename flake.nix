@@ -21,6 +21,7 @@
 
         lspServers = import ./lsp-servers { inherit pkgs; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
+        lspRuntimeDir = pkgs.runCommand "runtime-lsp" { } "mkdir $out; ln -s ${./lsp-servers/configs} $out/lsp";
 
         neovimConfigOriginal = pkgs.neovimUtils.makeNeovimConfig {
           customRC = builtins.readFile ./vimrc-append.vim;
@@ -55,7 +56,7 @@
             )
           ];
           wrapperArgs = neovimConfigOriginal.wrapperArgs
-            ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}" --cmd "set rtp+=${./runtime-after}"'' "--prefix" "PATH" ":" additionalPath ];
+            ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}" --cmd "set rtp+=${lspRuntimeDir}"'' "--prefix" "PATH" ":" additionalPath ];
         };
       in
       pkgs.wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
