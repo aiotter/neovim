@@ -63,6 +63,8 @@ set softtabstop=2 " タブの代わりに入力される空白文字の数
 set shiftwidth=2 " >> や自動インデントで増減する幅
 set autoindent " 改行時に前の行のインデントを継続する
 " set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set preserveindent
+set copyindent
 
 
 " ----- 検索 -----

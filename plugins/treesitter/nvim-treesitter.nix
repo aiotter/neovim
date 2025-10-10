@@ -9,7 +9,8 @@
       },
       indent = {
         enable = true,
-        disable = { "markdown" },
+        -- Disable on shellscript (tab in here doc is not preserved)
+        disable = { "markdown", "nix", "sh" },
       },
     }
 
