@@ -22,72 +22,61 @@
         lspServers = import ./lsp-servers { inherit pkgs; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
         lspRuntimeDir = pkgs.runCommand "runtime-lsp" { } "mkdir $out; ln -s ${./lsp-servers/configs} $out/lsp";
-
-        neovimConfigOriginal = pkgs.neovimUtils.makeNeovimConfig {
-          customRC = builtins.readFile ./vimrc-append.vim;
-          plugins = [
-            # dummy plugin to read vimrc-prepend.vim at the beginning
-            { plugin = pkgs.hello; config = builtins.readFile ./vimrc-prepend.vim; }
-          ] ++ allPlugins;
-        };
-        neovimConfigFinal = neovimConfigOriginal // {
-          neovimRcContent = builtins.concatStringsSep "\n\n" [
-            lspServers.neovimConfig
-            (neovimConfigOriginal.neovimRcContent)
-            (
-              let
-                python3 = pkgs.python3.withPackages (pkgs: [ pkgs.pynvim ]);
-              in
-              ''
-                if exists("$VIRTUAL_ENV")
-                  let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
-
-                  " Install pynvim if absent
-                  if system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
-                    call system(g:python3_host_prog . ' -m pip --disable-pip-version-check install pynvim')
-                  endif
-
-                  " config for QuickRun
-                  let $PATH = $VIRTUAL_ENV . '/bin:' . $PATH
-                else
-                  let g:python3_host_prog = '${python3}/bin/python3'
-                endif
-              ''
-            )
-          ];
-          wrapperArgs = neovimConfigOriginal.wrapperArgs
-            ++ [ "--add-flags" ''--cmd "set rtp^=${./runtime}" --cmd "set rtp+=${lspRuntimeDir}"'' "--prefix" "PATH" ":" additionalPath ];
-        };
       in
-      pkgs.wrapNeovimUnstable neovim-unwrapped neovimConfigFinal;
+      pkgs.wrapNeovimUnstable neovim-unwrapped {
+        plugins = [
+          # dummy plugin to read vimrc-prepend.vim at the beginning
+          { plugin = pkgs.hello; config = builtins.readFile ./vimrc-prepend.vim; }
+        ] ++ allPlugins;
+
+        neovimRcContent = builtins.concatStringsSep "\n\n" [
+          lspServers.neovimConfig
+          (builtins.readFile ./vimrc-append.vim)
+          ''
+            if exists("$VIRTUAL_ENV")
+              let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
+
+              " Install pynvim if absent
+              if system(g:python3_host_prog . ' -c "' . "import importlib.util; print(importlib.util.find_spec('pynvim') is None)" . '"') =~ '^True'
+                call system(g:python3_host_prog . ' -m pip --disable-pip-version-check install pynvim')
+              endif
+
+              " config for QuickRun
+              let $PATH = $VIRTUAL_ENV . '/bin:' . $PATH
+            endif
+          ''
+        ];
+
+        wrapperArgs = [
+          "--add-flags"
+          ''--cmd "set rtp^=${./runtime}" --cmd "set rtp+=${lspRuntimeDir}"''
+          "--prefix"
+          "PATH"
+          ":"
+          additionalPath
+        ];
+      };
 
     overlays.default = final: prev: {
       neovim = self.packages.${prev.system}.default;
     };
 
-    packages = builtins.mapAttrs
-      (system: _:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs {
-            src = neovim;
-            doInstallCheck = false;
-            patches = pkgs.fetchpatch {
-              url = "https://github.com/neovim/neovim/pull/33421.patch";
-              hash = "sha256-+llX3rfNMx5C89+kkxvxviafHdBBjOvs/shze9f79PE=";
-              revert = true;
-            };
-          };
-        in
-        { default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; }; })
-      vim-plugins.packages;
+    packages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+        neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs {
+          src = neovim;
+          doInstallCheck = false;
+        };
+      in
+      {
+        default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; };
+      }
+    );
   };
 
   nixConfig = {
-    # On Darwin, sandbox must be off
-    # https://github.com/NixOS/nix/issues/4119
-    # https://github.com/NixOS/nix/pull/12570
-    sandbox = false;
     extra-experimental-features = [ "pipe-operators" ];
   };
 }
