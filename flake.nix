@@ -17,21 +17,19 @@
         overlays = with inputs; map (input: input.overlays.default) [ nil ];
         pkgs = import nixpkgs { inherit system overlays; };
 
-        allPlugins = import ./plugins { inherit pkgs; pluginPkgs = vim-plugins.packages.${system}; };
-
         lspServers = import ./lsp-servers { inherit pkgs; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
         lspRuntimeDir = pkgs.runCommand "runtime-lsp" { } "mkdir $out; ln -s ${./lsp-servers/configs} $out/lsp";
       in
       pkgs.wrapNeovimUnstable neovim-unwrapped {
-        plugins = [
-          # dummy plugin to read vimrc-prepend.vim at the beginning
-          { plugin = pkgs.hello; config = builtins.readFile ./vimrc-prepend.vim; }
-        ] ++ allPlugins;
+        plugins = import ./plugins { inherit pkgs; pluginPkgs = vim-plugins.packages.${system}; };
+
+        # prepends to the generated init.lua
+        luaRcContent = builtins.readFile ./init.lua;
 
         neovimRcContent = builtins.concatStringsSep "\n\n" [
           lspServers.neovimConfig
-          (builtins.readFile ./vimrc-append.vim)
+          (builtins.readFile ./vimrc.vim)
           ''
             if exists("$VIRTUAL_ENV")
               let g:python3_host_prog = $VIRTUAL_ENV . '/bin/python'
