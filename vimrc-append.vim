@@ -58,9 +58,9 @@ endif
 
 " ----- タブとインデント (グローバル設定) -----
 set expandtab " タブ入力を複数の空白入力に置き換える
-set tabstop=4 " 画面上でタブ文字が占める幅
-set softtabstop=2 " タブの代わりに入力される空白文字の数
-set shiftwidth=2 " >> や自動インデントで増減する幅
+set tabstop=2 " 画面上でタブ文字が占める幅
+set softtabstop=-1 " タブの代わりに入力される空白文字の数 (マイナスは shiftwidth の値を使用)
+set shiftwidth=0 " >> や自動インデントで増減する幅 (0 は tabstop の値を使用)
 set autoindent " 改行時に前の行のインデントを継続する
 " set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set preserveindent
