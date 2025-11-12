@@ -37,7 +37,7 @@ in
 {
   packages = builtins.concatLists [
     [ erlls pylsp ]
-    (with pkgs; [ gopls pyright terraform-ls nixd nixfmt-rfc-style efm-langserver fortls deno tilt ])
+    (with pkgs; [ gopls haskell-language-server pyright terraform-ls nixd nixfmt-rfc-style efm-langserver fortls deno tilt ])
     (with pkgs.nodePackages; [ prettier svelte-language-server typescript-language-server ])
   ];
 
