@@ -8,6 +8,7 @@ vim.lsp.enable({
   "nixd",
   "prettier",
   "pylsp",
+  "pyright",
   "svelte",
   "terraformls",
   "tilt_ls",

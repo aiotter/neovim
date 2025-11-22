@@ -1,4 +1,8 @@
 return {
+  server_capabilities = {
+    -- provided by pyright
+    renameProvider = false,
+  },
   settings = {
     pylsp = {
       plugins = {
