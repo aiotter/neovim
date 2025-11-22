@@ -16,8 +16,9 @@
       let
         overlays = with inputs; map (input: input.overlays.default) [ nil ];
         pkgs = import nixpkgs { inherit system overlays; };
+        pkgsNoAliases = import nixpkgs { inherit system overlays; config.allowAliases = false; };
 
-        lspServers = import ./lsp-servers { inherit pkgs; };
+        lspServers = import ./lsp-servers { inherit pkgs pkgsNoAliases; };
         additionalPath = "${pkgs.symlinkJoin { name = "plugins"; paths = lspServers.packages; }}/bin";
         lspRuntimeDir = pkgs.runCommand "runtime-lsp" { } "mkdir $out; ln -s ${./lsp-servers/configs} $out/lsp";
       in
