@@ -12,8 +12,8 @@ let
   # next-ls = pkgs.callPackage ./packages/next-ls {};
 
   elixirls = pkgs.fetchzip {
-    url = "https://github.com/elixir-lsp/elixir-ls/releases/download/v0.23.0/elixir-ls-v0.23.0.zip";
-    hash = "sha256-bwYV2mgxgifZVX0qY2cl/gM/sWPCAGCrO3C/eKoTYV8=";
+    url = "https://github.com/elixir-lsp/elixir-ls/releases/download/v0.30.0/elixir-ls-v0.30.0.zip";
+    hash = "sha256-q5rVLrG5T1v+tc6zc0/pvuaEDpftQE4hYmSq0OAM2Ws=";
     stripRoot = false;
   };
 
