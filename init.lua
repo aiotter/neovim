@@ -69,6 +69,49 @@ vim.api.nvim_create_autocmd({ "WinEnter" }, {
   command = "if winnr('$') == 1 && &buftype == 'quickfix'|q|endif",
 })
 
+-- Binary edit mode via xxd (vim -b / *.bin)
+do
+  local group = vim.api.nvim_create_augroup("BinaryXXD", { clear = true })
+  local function is_binary(bufnr) return vim.bo[bufnr].binary end
+
+  vim.api.nvim_create_autocmd("BufReadPre", {
+    group = group,
+    pattern = "*.bin",
+    callback = function(ev)
+      vim.bo[ev.buf].binary = true
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufReadPost", {
+    group = group,
+    pattern = "*",
+    callback = function(ev)
+      if not is_binary(ev.buf) then return end
+      vim.cmd("silent %!xxd -g 1")
+      vim.bo[ev.buf].filetype = "xxd"
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = group,
+    pattern = "*",
+    callback = function(ev)
+      if not is_binary(ev.buf) then return end
+      vim.cmd("%!xxd -r")
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("BufWritePost", {
+    group = group,
+    pattern = "*",
+    callback = function(ev)
+      if not is_binary(ev.buf) then return end
+      vim.cmd("silent %!xxd -g 1")
+      vim.bo[ev.buf].modified = false
+    end,
+  })
+end
+
 -- floating window
 vim.cmd([[highlight NormalFloat guifg=#eceff4 guibg=#1e1e1e ctermbg=235]])
 
