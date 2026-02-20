@@ -92,6 +92,19 @@ do
     end,
   })
 
+  vim.api.nvim_create_autocmd("OptionSet", {
+    group = group,
+    pattern = "filetype",
+    callback = function(ev)
+      if not is_binary(ev.buf) then return end
+      if vim.bo[ev.buf].filetype == "xxd" then return end
+      local was_modified = vim.bo[ev.buf].modified
+      vim.cmd("%!xxd -r")
+      vim.bo[ev.buf].binary = false
+      vim.bo[ev.buf].modified = was_modified
+    end,
+  })
+
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = group,
     pattern = "*",
