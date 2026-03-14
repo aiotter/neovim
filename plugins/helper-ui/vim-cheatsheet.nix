@@ -81,8 +81,6 @@ in
 {
   plugin = vim-cheatsheet;
   config = ''
-    nnoremap <Leader>c :Cheat<CR>
-
     let g:cheatsheet#cheat_file = '${cheatSheet}'
     if has('nvim')
       let g:cheatsheet#float_window = 1

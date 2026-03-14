@@ -1,8 +1,6 @@
 { vista-vim }: {
   plugin = vista-vim;
   config = ''
-    nnoremap <silent> <Leader>d :<C-u>Vista!!<CR>
-
     let g:vista_sidebar_width = 30
     let g:vista_echo_cursor_strategy = 'floating_win'
     let g:vista#renderer#enable_icon = 1

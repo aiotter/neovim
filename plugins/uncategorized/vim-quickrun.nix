@@ -1,8 +1,6 @@
 { vim-quickrun }: {
   plugin = vim-quickrun;
   config = ''
-    nnoremap <Leader>q :<C-u>QuickRun<CR>
-
     let g:quickrun_config = {
     \ "python": {
     \   "outputter/quickfix/errorformat": '%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m'

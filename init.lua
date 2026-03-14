@@ -6,8 +6,6 @@ vim.g.maplocalleader = " "
 
 vim.o.timeoutlen = 500
 
-vim.keymap.set("n", "<Leader>f", ":let &filetype=input('Enter filetype: ')<CR>")
-
 vim.o.encoding = "utf-8"
 vim.opt.fileencodings = { "ucs-boms", "utf-8", "euc-jp", "cp932" }
 vim.opt.fileformats = { "unix", "dos", "mac" }
