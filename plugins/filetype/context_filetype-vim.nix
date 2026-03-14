@@ -45,9 +45,28 @@
       endif
     endfunction
 
+    function! s:on_eex_file() abort
+      let l:ft = &l:filetype
+      if empty(l:ft)
+        return
+      endif
+
+      let l:filetypes = copy(g:context_filetype#filetypes)
+      let l:eex_contexts = [
+      \   {
+      \     'start': '<%[#=-]\?',
+      \     'end': '%>',
+      \     'filetype': 'elixir',
+      \   },
+      \ ]
+      let l:filetypes[l:ft] = l:eex_contexts + get(l:filetypes, l:ft, [])
+      let b:context_filetype_filetypes = l:filetypes
+    endfunction
+
     augroup context_filetype
       autocmd!
       autocmd FileType nix call s:on_nix_file()
+      autocmd FileType * if expand('%:t') =~# '\.eex$' | call s:on_eex_file() | endif
     augroup END
   '';
 }
