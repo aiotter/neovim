@@ -29,6 +29,7 @@
 
     local leader_group_clues = {
       { mode = "n", keys = "<LocalLeader>g", desc = "+Git" },
+      { mode = "n", keys = "<LocalLeader>gh", desc = "+Git hunk" },
       { mode = "n", keys = "<LocalLeader>l", desc = "+LSP" },
     }
 
