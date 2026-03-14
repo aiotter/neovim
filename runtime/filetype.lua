@@ -1,4 +1,7 @@
 vim.filetype.add({
+  filename = {
+    Tiltfile = "tiltfile",
+  },
   pattern = {
     -- Infer the base filetype from the filename before the .eex suffix.
     [".+%.eex"] = function(path)
