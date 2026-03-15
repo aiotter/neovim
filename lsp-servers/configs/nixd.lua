@@ -1,7 +1,7 @@
 return {
   settings = {
     nixd = {
-      formatting = { command = { "nixfmt" } },
+      formatting = { command = { "sh", "-c", 'nix fmt -- "$@" || alejandra "$@"' } },
     },
   },
 }
