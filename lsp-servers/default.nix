@@ -42,6 +42,10 @@ let
     supportedGhcVersions =
       pkgsNoAliases.haskell.packages
       |> lib.attrsToList
+      |> lib.filter (
+        { name, value }:
+        (builtins.match "ghc([0-9]+)" name) != null && value.haskell-language-server.meta.available
+      )
       |> lib.sort (a: b: lib.versionOlder (b.value.ghc.version or "") (a.value.ghc.version or ""))
       |> builtins.foldl' (
         acc: elem:
@@ -58,11 +62,11 @@ let
       ) [ ]
       |> builtins.foldl' (
         acc:
-        { name, value }:
+        { name, ... }:
         let
           match = builtins.match "ghc([0-9]+)" name;
         in
-        if (lib.isList match) && value.haskell-language-server.meta.available then acc ++ match else acc
+        if lib.isList match then acc ++ match else acc
       ) [ ]
       |> lib.takeEnd 4;
   };
