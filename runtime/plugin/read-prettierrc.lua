@@ -21,18 +21,6 @@ for _, filetype in ipairs(prettier_filetypes) do
   prettier_filetypes_set[filetype] = true
 end
 
-local prettier_resolve_script = [[
-  (async () => {
-    const prettier = require("prettier");
-    const file = process.argv[1];
-    const config = await prettier.resolveConfig(file, { editorconfig: true });
-    process.stdout.write(JSON.stringify(config || {}));
-  })().catch((err) => {
-    process.stderr.write(String(err && err.stack || err));
-    process.exit(1);
-  });
-]]
-
 local function apply_indent_config(bufnr, config)
   local buf_opts = vim.bo[bufnr]
 
@@ -71,7 +59,7 @@ local function apply_prettier_indent(event)
   if file == "" then return end
 
   vim.system(
-    { "node", "-e", prettier_resolve_script, file },
+    { "read-prettier-config", file },
     { cwd = vim.fs.dirname(file), text = true },
     vim.schedule_wrap(function(result)
       if result.code ~= 0 then return end
