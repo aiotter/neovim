@@ -6,6 +6,10 @@ vim.g.maplocalleader = " "
 
 vim.o.timeoutlen = 500
 
+-- Stop Neovim's default OSC 9;4 forwarding because file-open progress can
+-- leave Ghostty's top progress bar stuck.
+vim.api.nvim_del_augroup_by_name("nvim.progress")
+
 vim.o.encoding = "utf-8"
 vim.opt.fileencodings = { "ucs-boms", "utf-8", "euc-jp", "cp932" }
 vim.opt.fileformats = { "unix", "dos", "mac" }
