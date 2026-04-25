@@ -1,8 +1,8 @@
-{ writers, nodePackages }:
+{ writers, prettier }:
 
 writers.writeJSBin "read-prettier-config"
   {
-    libraries = with nodePackages; [ prettier ];
+    libraries = [ prettier ];
   }
   ''
     const prettier = require("prettier");
