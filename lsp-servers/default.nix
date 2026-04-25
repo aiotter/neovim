@@ -34,49 +34,12 @@ let
     ps: with ps; [ python-lsp-server pyls-isort /** pylsp-mypy **/ ]
       ++ (with python-lsp-server.optional-dependencies; builtins.concatLists [ pycodestyle autopep8 ])
   );
-
-  haskell-language-server = pkgs.haskell-language-server.override {
-    supportedFormatters = [ "fourmolu" ];
-
-    # latest 4 versions
-    supportedGhcVersions =
-      pkgsNoAliases.haskell.packages
-      |> lib.attrsToList
-      |> lib.filter (
-        { name, value }:
-        (builtins.match "ghc([0-9]+)" name) != null && value.haskell-language-server.meta.available
-      )
-      |> lib.sort (a: b: lib.versionOlder (b.value.ghc.version or "") (a.value.ghc.version or ""))
-      |> builtins.foldl' (
-        acc: elem:
-        if
-          acc == [ ]
-          || (
-            lib.versions.majorMinor elem.value.ghc.version or ""
-            != lib.versions.majorMinor (builtins.head acc).value.ghc.version or ""
-          )
-        then
-          [ elem ] ++ acc
-        else
-          acc
-      ) [ ]
-      |> builtins.foldl' (
-        acc:
-        { name, ... }:
-        let
-          match = builtins.match "ghc([0-9]+)" name;
-        in
-        if lib.isList match then acc ++ match else acc
-      ) [ ]
-      |> lib.takeEnd 4;
-  };
 in
 
 {
   packages = builtins.concatLists [
-    [ erlls pylsp haskell-language-server ]
-    (with pkgs; [ gopls pyright terraform-ls nixd nixfmt-rfc-style efm-langserver fortls deno tilt ])
-    (with pkgs.nodePackages; [ prettier svelte-language-server typescript-language-server ])
+    [ erlls pylsp ]
+    (with pkgs; [ gopls pyright terraform-ls nixd nixfmt efm-langserver fortls deno tilt prettier svelte-language-server typescript-language-server ])
   ];
 
   neovimConfig = ''

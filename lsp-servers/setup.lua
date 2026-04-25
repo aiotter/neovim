@@ -4,7 +4,6 @@ vim.lsp.enable({
   "erlls",
   "fortls",
   "gopls",
-  "hls",
   "nixd",
   "prettier",
   "pylsp",
