@@ -14,7 +14,11 @@
   outputs = { self, nixpkgs, neovim, vim-plugins, ... }@inputs: {
     lib.makeCustomNeovim = { system, neovim-unwrapped }:
       let
-        overlays = with inputs; map (input: input.overlays.default) [ nil ];
+        overlays = with inputs; [
+          nil.overlays.default
+          (import ./overlay.nix)
+        ];
+
         pkgs = import nixpkgs { inherit system overlays; };
         pkgsNoAliases = import nixpkgs { inherit system overlays; config.allowAliases = false; };
         lspServers = import ./lsp-servers { inherit pkgs pkgsNoAliases; };
