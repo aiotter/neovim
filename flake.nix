@@ -23,6 +23,7 @@
         pkgsNoAliases = import nixpkgs { inherit system overlays; config.allowAliases = false; };
         lspServers = import ./lsp-servers { inherit pkgs pkgsNoAliases; };
         lspRuntimeDir = pkgs.runCommand "runtime-lsp" { } "mkdir $out; ln -s ${./lsp-servers/configs} $out/lsp";
+        runtimeDeps = with self.packages.${system}; [ read-prettier-config ];
       in
       pkgs.wrapNeovimUnstable neovim-unwrapped {
         plugins = import ./plugins { inherit pkgs; pluginPkgs = vim-plugins.packages.${system}; };
@@ -56,7 +57,7 @@
           ":"
           (pkgs.symlinkJoin {
             name = "neovim-deps";
-            paths = lspServers.packages ++ import ./packages { inherit pkgs; };
+            paths = lspServers.packages ++ runtimeDeps;
             stripPrefix = "/bin";
           })
         ];
@@ -70,6 +71,8 @@
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        inherit (pkgs) callPackage;
+
         neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs {
           src = neovim;
           doInstallCheck = false;
@@ -77,6 +80,7 @@
       in
       {
         default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; };
+        read-prettier-config = callPackage ./packages/read-prettier-config { };
       }
     );
   };
