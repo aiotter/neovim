@@ -78,9 +78,19 @@
           doInstallCheck = false;
         };
       in
-      {
-        default = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; };
+      rec {
+        default = pkgs.symlinkJoin {
+          name = "neovim-customed";
+          paths = [
+            neovim
+            neovim-remote
+          ];
+          meta.mainProgram = "nvim";
+        };
+
+        neovim = self.lib.makeCustomNeovim { inherit system neovim-unwrapped; };
         read-prettier-config = callPackage ./packages/read-prettier-config { };
+        neovim-remote = callPackage ./packages/neovim-remote { flake = self.outPath; };
       }
     );
   };
