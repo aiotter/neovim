@@ -2,6 +2,9 @@
   plugin = oil-nvim;
   config.lua = ''
     require("oil").setup({
+      adapter_aliases = {
+        ["ssh://"] = "oil-ssh://",
+      },
       keymaps = {
         ["<S-CR>"] = { "actions.select", opts = { tab = true } },
       },
