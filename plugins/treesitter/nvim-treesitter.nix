@@ -21,7 +21,7 @@
         local bufnr = args.buf
         local ft = vim.bo[bufnr].filetype
         if not vim.tbl_contains(indent_disabled, ft) then
-          vim.bo[bufnr].indentexpr = "v:lua.vim.treesitter.indentexpr()"
+          vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end
       end,
     })
