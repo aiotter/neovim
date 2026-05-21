@@ -28,6 +28,8 @@
     }
 
     local leader_group_clues = {
+      { mode = "n", keys = "<LocalLeader>y", desc = "+Copy" },
+      { mode = "x", keys = "<LocalLeader>y", desc = "+Copy" },
       { mode = "n", keys = "<LocalLeader>g", desc = "+Git" },
       { mode = "n", keys = "<LocalLeader>gh", desc = "+Git hunk" },
       { mode = "n", keys = "<LocalLeader>l", desc = "+LSP" },

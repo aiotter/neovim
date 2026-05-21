@@ -1,3 +1,8 @@
+local file_line_reference = require("file_line_reference")
+
+vim.keymap.set("n", "<Leader>yl", file_line_reference.copy_to_clipboard, { desc = "copy /file/path:line" })
+vim.keymap.set("x", "<Leader>yl", file_line_reference.copy_selection_to_clipboard, { desc = "copy /file/path:line" })
+
 vim.keymap.set("n", "<Leader>c", "<Cmd>Cheat<CR>", { desc = "cheatsheet" })
 vim.keymap.set("n", "<Leader>d", "<Cmd>Vista!!<CR>", { desc = "definitions" })
 vim.keymap.set("n", "<Leader>f", ":let &filetype=input('Enter filetype: ')<CR>", { desc = "file type" })
