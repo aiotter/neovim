@@ -55,12 +55,16 @@ local function apply_prettier_indent(event)
 
   if not prettier_filetypes_set[vim.bo[bufnr].filetype] then return end
 
-  local file = vim.api.nvim_buf_get_name(bufnr)
+  local file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p")
   if file == "" then return end
 
-  vim.system(
+  local dir = vim.fs.dirname(file)
+  local stat = vim.uv.fs_stat(dir)
+  if not stat or stat.type ~= "directory" then return end
+
+  pcall(vim.system,
     { "read-prettier-config", file },
-    { cwd = vim.fs.dirname(file), text = true },
+    { cwd = dir, text = true },
     vim.schedule_wrap(function(result)
       if result.code ~= 0 then return end
 
