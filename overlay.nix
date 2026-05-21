@@ -1,17 +1,31 @@
 final: prev:
 
 let
-  inherit (final) lib stdenv;
+  inherit (final) lib;
 in
 
 {
-  neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (old: {
-    postInstall =
-      (old.postInstall or "")
-      + lib.optionalString stdenv.hostPlatform.isLinux ''
-        ln -s "$out/share/applications/org.neovim.nvim.desktop" "$out/share/applications/nvim.desktop"
-      '';
-  });
+  wrapNeovimUnstable = neovim-unwrapped: attrs:
+    (prev.wrapNeovimUnstable neovim-unwrapped attrs).overrideAttrs (old: {
+      postBuild = lib.replaceStrings
+        [
+          ''
+            rm $out/share/applications/nvim.desktop
+            substitute ${neovim-unwrapped}/share/applications/nvim.desktop $out/share/applications/nvim.desktop \
+          ''
+        ]
+        [
+          ''
+            rm -f $out/share/applications/nvim.desktop
+            desktopFile=${neovim-unwrapped}/share/applications/nvim.desktop
+            if [ ! -e "$desktopFile" ]; then
+              desktopFile=${neovim-unwrapped}/share/applications/org.neovim.nvim.desktop
+            fi
+            substitute "$desktopFile" $out/share/applications/nvim.desktop \
+          ''
+        ]
+        old.postBuild;
+    });
 
   nixfmt = prev.nixfmt.overrideAttrs (old: {
     patches = old.patches or [ ] ++ [
